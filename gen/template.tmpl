@@ -1,0 +1,30 @@
+package slices
+
+import "math/rand"
+
+//{{.TypeCased}}Shuffle will randomly swap the {{.Type}} elements of a slice.
+func {{.TypeCased}}Shuffle(sp *[]{{.Type}}) {
+	slice := *sp
+	rand.Shuffle(len(slice), func(i, j int) {
+		slice[i], slice[j] = slice[j], slice[i]
+	})
+}
+
+//{{.TypeCased}}Equals compares two {{.Type}} slices. Returns true if their elements are equal.
+func {{.TypeCased}}Equals(a, b []{{.Type}}) bool {
+	if a == nil && b == nil {
+		return true
+	}
+	if a == nil || b == nil {
+		return false // one of them is nil, the other is not.
+	}
+	if len(a) != len(b) {
+		return false
+	}
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
+}
