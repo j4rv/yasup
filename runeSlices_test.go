@@ -3,11 +3,31 @@ package slices_test
 import "testing"
 import "github.com/j4rv/slices"
 
-func Test_RuneShuffle(t *testing.T) {
+func Test_RuneFastShuffle(t *testing.T) {
 	shuffles := [][]rune{}
 	for i := 0; i < 8; i++ {
 		or := []rune{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-		slices.RuneShuffle(&or)
+		slices.RuneFastShuffle(or)
+		shuffles = append(shuffles, or)
+	}
+	for i := range shuffles {
+		for j := range shuffles {
+			if i == j {
+				continue
+			}
+			if slices.RuneEquals(shuffles[i], shuffles[j]) {
+				// If there is any collision in 8 shuffles, the Shuffle function is probably broken
+				t.Fail()
+			}
+		}
+	}
+}
+
+func Test_RuneSecureShuffle(t *testing.T) {
+	shuffles := [][]rune{}
+	for i := 0; i < 8; i++ {
+		or := []rune{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+		slices.RuneSecureShuffle(or)
 		shuffles = append(shuffles, or)
 	}
 	for i := range shuffles {
@@ -32,8 +52,9 @@ func Test_RuneEquals(t *testing.T) {
 	tcs := []TestCase{
 		// nil checks
 		{"Equals nil", nil, nil, true},
-		{"Left nil, right empty", nil, []rune{}, false},
-		{"Right nil, left empty", []rune{}, nil, false},
+		// golang treats empty and nil slices as the same thing in most cases, we'll do the same
+		{"Left nil, right empty", nil, []rune{}, true},
+		{"Right nil, left empty", []rune{}, nil, true},
 		{"Left nil, right not empty", nil, []rune{2147483647}, false},
 		{"Right nil, left not empty", []rune{2147483647}, nil, false},
 

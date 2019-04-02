@@ -3,11 +3,31 @@ package slices_test
 import "testing"
 import "github.com/j4rv/slices"
 
-func Test_Int8Shuffle(t *testing.T) {
+func Test_Int8FastShuffle(t *testing.T) {
 	shuffles := [][]int8{}
 	for i := 0; i < 8; i++ {
 		or := []int8{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-		slices.Int8Shuffle(&or)
+		slices.Int8FastShuffle(or)
+		shuffles = append(shuffles, or)
+	}
+	for i := range shuffles {
+		for j := range shuffles {
+			if i == j {
+				continue
+			}
+			if slices.Int8Equals(shuffles[i], shuffles[j]) {
+				// If there is any collision in 8 shuffles, the Shuffle function is probably broken
+				t.Fail()
+			}
+		}
+	}
+}
+
+func Test_Int8SecureShuffle(t *testing.T) {
+	shuffles := [][]int8{}
+	for i := 0; i < 8; i++ {
+		or := []int8{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+		slices.Int8SecureShuffle(or)
 		shuffles = append(shuffles, or)
 	}
 	for i := range shuffles {
@@ -32,8 +52,9 @@ func Test_Int8Equals(t *testing.T) {
 	tcs := []TestCase{
 		// nil checks
 		{"Equals nil", nil, nil, true},
-		{"Left nil, right empty", nil, []int8{}, false},
-		{"Right nil, left empty", []int8{}, nil, false},
+		// golang treats empty and nil slices as the same thing in most cases, we'll do the same
+		{"Left nil, right empty", nil, []int8{}, true},
+		{"Right nil, left empty", []int8{}, nil, true},
 		{"Left nil, right not empty", nil, []int8{-128}, false},
 		{"Right nil, left not empty", []int8{-128}, nil, false},
 

@@ -1,23 +1,34 @@
 package slices
 
-import "math/rand"
+import (
+	crypto "crypto/rand"
+	"math/big"
+	"math/rand"
+)
 
-//Complex64Shuffle will randomly swap the complex64 elements of a slice.
-func Complex64Shuffle(sp *[]complex64) {
-	slice := *sp
-	rand.Shuffle(len(slice), func(i, j int) {
-		slice[i], slice[j] = slice[j], slice[i]
+// TODO: Test that a nil slice does not panic in FastShuffle and SecureShuffle
+
+//Complex64FastShuffle will randomly swap the complex64 elements of a slice using math/big (fast but not cryptographycally secure).
+func Complex64FastShuffle(sp []complex64) {
+	rand.Shuffle(len(sp), func(i, j int) {
+		sp[i], sp[j] = sp[j], sp[i]
 	})
+}
+
+//Complex64SecureShuffle will randomly swap the complex64 elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
+func Complex64SecureShuffle(sp []complex64) {
+	for i := len(sp) - 1; i > 0; i-- {
+		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(int64(i)))
+		if err != nil {
+			panic(err)
+		}
+		randI := bigRandI.Int64()
+		sp[i], sp[randI] = sp[randI], sp[i]
+	}
 }
 
 //Complex64Equals compares two complex64 slices. Returns true if their elements are equal.
 func Complex64Equals(a, b []complex64) bool {
-	if a == nil && b == nil {
-		return true
-	}
-	if a == nil || b == nil {
-		return false // one of them is nil, the other is not.
-	}
 	if len(a) != len(b) {
 		return false
 	}

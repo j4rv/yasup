@@ -3,11 +3,31 @@ package slices_test
 import "testing"
 import "github.com/j4rv/slices"
 
-func Test_Float32Shuffle(t *testing.T) {
+func Test_Float32FastShuffle(t *testing.T) {
 	shuffles := [][]float32{}
 	for i := 0; i < 8; i++ {
 		or := []float32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-		slices.Float32Shuffle(&or)
+		slices.Float32FastShuffle(or)
+		shuffles = append(shuffles, or)
+	}
+	for i := range shuffles {
+		for j := range shuffles {
+			if i == j {
+				continue
+			}
+			if slices.Float32Equals(shuffles[i], shuffles[j]) {
+				// If there is any collision in 8 shuffles, the Shuffle function is probably broken
+				t.Fail()
+			}
+		}
+	}
+}
+
+func Test_Float32SecureShuffle(t *testing.T) {
+	shuffles := [][]float32{}
+	for i := 0; i < 8; i++ {
+		or := []float32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+		slices.Float32SecureShuffle(or)
 		shuffles = append(shuffles, or)
 	}
 	for i := range shuffles {
@@ -32,8 +52,9 @@ func Test_Float32Equals(t *testing.T) {
 	tcs := []TestCase{
 		// nil checks
 		{"Equals nil", nil, nil, true},
-		{"Left nil, right empty", nil, []float32{}, false},
-		{"Right nil, left empty", []float32{}, nil, false},
+		// golang treats empty and nil slices as the same thing in most cases, we'll do the same
+		{"Left nil, right empty", nil, []float32{}, true},
+		{"Right nil, left empty", []float32{}, nil, true},
 		{"Left nil, right not empty", nil, []float32{-2147483648}, false},
 		{"Right nil, left not empty", []float32{-2147483648}, nil, false},
 
