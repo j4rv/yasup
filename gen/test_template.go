@@ -1,7 +1,14 @@
+package main
+
+import "text/template"
+
+var testTemplate = template.Must(template.New("").Parse(`
 package slices_test
 
 import "testing"
 import "github.com/j4rv/slices"
+
+// TODO: Test that a nil slice does not panic in FastShuffle and SecureShuffle
 
 func Test_{{.TypeCased}}FastShuffle(t *testing.T) {
 	shuffles := [][]{{.Type}}{}
@@ -21,6 +28,8 @@ func Test_{{.TypeCased}}FastShuffle(t *testing.T) {
 			}
 		}
 	}
+	// check that nil does not panic
+	slices.{{.TypeCased}}FastShuffle(nil)
 }
 
 func Test_{{.TypeCased}}SecureShuffle(t *testing.T) {
@@ -41,6 +50,8 @@ func Test_{{.TypeCased}}SecureShuffle(t *testing.T) {
 			}
 		}
 	}
+	// check that nil does not panic
+	slices.{{.TypeCased}}SecureShuffle(nil)
 }
 
 func Test_{{.TypeCased}}Equals(t *testing.T) {
@@ -72,3 +83,4 @@ func Test_{{.TypeCased}}Equals(t *testing.T) {
 		}
 	}
 }
+`))

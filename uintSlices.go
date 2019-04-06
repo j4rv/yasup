@@ -6,9 +6,7 @@ import (
 	"math/rand"
 )
 
-// TODO: Test that a nil slice does not panic in FastShuffle and SecureShuffle
-
-//UintFastShuffle will randomly swap the uint elements of a slice using math/big (fast but not cryptographycally secure).
+//UintFastShuffle will randomly swap the uint elements of a slice using math/rand (fast but not cryptographycally secure).
 func UintFastShuffle(sp []uint) {
 	rand.Shuffle(len(sp), func(i, j int) {
 		sp[i], sp[j] = sp[j], sp[i]

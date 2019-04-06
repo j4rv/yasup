@@ -30,12 +30,10 @@ func main() {
 	fmt.Println("Building slices file for type", typeStr)
 	typeToBuild := tmplVars{typeStr, strings.Title(typeStr), singleVal, multipleVals}
 
-	srcTmpl := template.Must(template.ParseFiles("template.tmpl"))
-	execTmpl(srcTmpl, typeToBuild.Type+"Slices.go", typeToBuild)
+	execTmpl(srcTemplate, typeToBuild.Type+"Slices.go", typeToBuild)
 
 	if addTest {
-		testTmpl := template.Must(template.ParseFiles("test_template.tmpl"))
-		execTmpl(testTmpl, typeToBuild.Type+"Slices_test.go", typeToBuild)
+		execTmpl(testTemplate, typeToBuild.Type+"Slices_test.go", typeToBuild)
 	}
 }
 

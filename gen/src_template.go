@@ -1,3 +1,8 @@
+package main
+
+import "text/template"
+
+var srcTemplate = template.Must(template.New("").Parse(`
 package slices
 
 import (
@@ -6,9 +11,7 @@ import (
 	"math/rand"
 )
 
-// TODO: Test that a nil slice does not panic in FastShuffle and SecureShuffle
-
-//{{.TypeCased}}FastShuffle will randomly swap the {{.Type}} elements of a slice using math/big (fast but not cryptographycally secure).
+//{{.TypeCased}}FastShuffle will randomly swap the {{.Type}} elements of a slice using math/rand (fast but not cryptographycally secure).
 func {{.TypeCased}}FastShuffle(sp []{{.Type}}) {
 	rand.Shuffle(len(sp), func(i, j int) {
 		sp[i], sp[j] = sp[j], sp[i]
@@ -39,3 +42,4 @@ func {{.TypeCased}}Equals(a, b []{{.Type}}) bool {
 	}
 	return true
 }
+`))

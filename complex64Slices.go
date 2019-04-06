@@ -6,9 +6,7 @@ import (
 	"math/rand"
 )
 
-// TODO: Test that a nil slice does not panic in FastShuffle and SecureShuffle
-
-//Complex64FastShuffle will randomly swap the complex64 elements of a slice using math/big (fast but not cryptographycally secure).
+//Complex64FastShuffle will randomly swap the complex64 elements of a slice using math/rand (fast but not cryptographycally secure).
 func Complex64FastShuffle(sp []complex64) {
 	rand.Shuffle(len(sp), func(i, j int) {
 		sp[i], sp[j] = sp[j], sp[i]

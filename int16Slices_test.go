@@ -3,6 +3,8 @@ package slices_test
 import "testing"
 import "github.com/j4rv/slices"
 
+// TODO: Test that a nil slice does not panic in FastShuffle and SecureShuffle
+
 func Test_Int16FastShuffle(t *testing.T) {
 	shuffles := [][]int16{}
 	for i := 0; i < 8; i++ {
@@ -21,6 +23,8 @@ func Test_Int16FastShuffle(t *testing.T) {
 			}
 		}
 	}
+	// check that nil does not panic
+	slices.Int16FastShuffle(nil)
 }
 
 func Test_Int16SecureShuffle(t *testing.T) {
@@ -41,6 +45,8 @@ func Test_Int16SecureShuffle(t *testing.T) {
 			}
 		}
 	}
+	// check that nil does not panic
+	slices.Int16SecureShuffle(nil)
 }
 
 func Test_Int16Equals(t *testing.T) {
