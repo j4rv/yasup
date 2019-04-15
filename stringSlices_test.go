@@ -3,6 +3,28 @@ package slices_test
 import "testing"
 import "github.com/j4rv/slices"
 
+func Test_StringInsert(t *testing.T) {
+	type testCase struct {
+		name     string
+		slice    []string
+		insertAt int
+	}
+	base := []string{"0", "1", "2", "3", "4", "5", "6", "7", "lorem", "ipsum"}
+	tcs := []testCase{
+		{"First", []string{"0", "1", "2", "3", "4", "5", "6", "7", "lorem", "ipsum"}, 0},
+		{"Middle", []string{"0", "1", "2", "3", "4", "5", "6", "7", "lorem", "ipsum"}, len(base) / 2},
+		{"Last", []string{"0", "1", "2", "3", "4", "5", "6", "7", "lorem", "ipsum"}, len(base)},
+		{"Empty slice", []string{}, 0},
+		{"Nil slice", nil, 0},
+	}
+	for _, tc := range tcs {
+		slices.StringInsert("foobar", &tc.slice, tc.insertAt)
+		if tc.slice[tc.insertAt] != "foobar" {
+			t.Error(tc)
+		}
+	}
+}
+
 func Test_StringFastShuffle(t *testing.T) {
 	shuffles := [][]string{}
 	for i := 0; i < 8; i++ {
@@ -12,7 +34,7 @@ func Test_StringFastShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.StringEquals(shuffles[i], shuffles[j]) {
@@ -34,7 +56,7 @@ func Test_StringSecureShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.StringEquals(shuffles[i], shuffles[j]) {
@@ -72,7 +94,7 @@ func Test_StringEquals(t *testing.T) {
 	for _, tc := range tcs {
 		got := slices.StringEquals(tc.a, tc.b)
 		if got != tc.exp {
-			t.Error(tc.name)
+			t.Error(tc)
 		}
 	}
 }

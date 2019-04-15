@@ -6,6 +6,13 @@ import (
 	"math/rand"
 )
 
+//Int8Insert will append elem at the position i
+func Int8Insert(elem int8, sl *[]int8, i int) {
+	*sl = append(*sl, elem)
+	copy((*sl)[i+1:], (*sl)[i:])
+	(*sl)[i] = elem
+}
+
 //Int8FastShuffle will randomly swap the int8 elements of a slice using math/rand (fast but not cryptographycally secure).
 func Int8FastShuffle(sp []int8) {
 	rand.Shuffle(len(sp), func(i, j int) {
@@ -15,8 +22,8 @@ func Int8FastShuffle(sp []int8) {
 
 //Int8SecureShuffle will randomly swap the int8 elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
 func Int8SecureShuffle(sp []int8) {
-	for i := len(sp) - 1; i > 0; i-- {
-		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(int64(i)))
+	for i := int64(len(sp) - 1); i >= 0; i-- {
+		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(i+1))
 		if err != nil {
 			panic(err)
 		}

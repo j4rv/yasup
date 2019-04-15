@@ -3,6 +3,28 @@ package slices_test
 import "testing"
 import "github.com/j4rv/slices"
 
+func Test_Complex64Insert(t *testing.T) {
+	type testCase struct {
+		name     string
+		slice    []complex64
+		insertAt int
+	}
+	base := []complex64{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}
+	tcs := []testCase{
+		{"First", []complex64{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}, 0},
+		{"Middle", []complex64{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}, len(base) / 2},
+		{"Last", []complex64{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}, len(base)},
+		{"Empty slice", []complex64{}, 0},
+		{"Nil slice", nil, 0},
+	}
+	for _, tc := range tcs {
+		slices.Complex64Insert(-5.64+15.82i, &tc.slice, tc.insertAt)
+		if tc.slice[tc.insertAt] != -5.64+15.82i {
+			t.Error(tc)
+		}
+	}
+}
+
 func Test_Complex64FastShuffle(t *testing.T) {
 	shuffles := [][]complex64{}
 	for i := 0; i < 8; i++ {
@@ -12,7 +34,7 @@ func Test_Complex64FastShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.Complex64Equals(shuffles[i], shuffles[j]) {
@@ -34,7 +56,7 @@ func Test_Complex64SecureShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.Complex64Equals(shuffles[i], shuffles[j]) {
@@ -72,7 +94,7 @@ func Test_Complex64Equals(t *testing.T) {
 	for _, tc := range tcs {
 		got := slices.Complex64Equals(tc.a, tc.b)
 		if got != tc.exp {
-			t.Error(tc.name)
+			t.Error(tc)
 		}
 	}
 }

@@ -3,6 +3,28 @@ package slices_test
 import "testing"
 import "github.com/j4rv/slices"
 
+func Test_ByteInsert(t *testing.T) {
+	type testCase struct {
+		name     string
+		slice    []byte
+		insertAt int
+	}
+	base := []byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	tcs := []testCase{
+		{"First", []byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
+		{"Middle", []byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
+		{"Last", []byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
+		{"Empty slice", []byte{}, 0},
+		{"Nil slice", nil, 0},
+	}
+	for _, tc := range tcs {
+		slices.ByteInsert(255, &tc.slice, tc.insertAt)
+		if tc.slice[tc.insertAt] != 255 {
+			t.Error(tc)
+		}
+	}
+}
+
 func Test_ByteFastShuffle(t *testing.T) {
 	shuffles := [][]byte{}
 	for i := 0; i < 8; i++ {
@@ -12,7 +34,7 @@ func Test_ByteFastShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.ByteEquals(shuffles[i], shuffles[j]) {
@@ -34,7 +56,7 @@ func Test_ByteSecureShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.ByteEquals(shuffles[i], shuffles[j]) {
@@ -72,7 +94,7 @@ func Test_ByteEquals(t *testing.T) {
 	for _, tc := range tcs {
 		got := slices.ByteEquals(tc.a, tc.b)
 		if got != tc.exp {
-			t.Error(tc.name)
+			t.Error(tc)
 		}
 	}
 }

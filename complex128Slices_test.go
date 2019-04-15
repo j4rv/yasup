@@ -3,6 +3,28 @@ package slices_test
 import "testing"
 import "github.com/j4rv/slices"
 
+func Test_Complex128Insert(t *testing.T) {
+	type testCase struct {
+		name     string
+		slice    []complex128
+		insertAt int
+	}
+	base := []complex128{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}
+	tcs := []testCase{
+		{"First", []complex128{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}, 0},
+		{"Middle", []complex128{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}, len(base) / 2},
+		{"Last", []complex128{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}, len(base)},
+		{"Empty slice", []complex128{}, 0},
+		{"Nil slice", nil, 0},
+	}
+	for _, tc := range tcs {
+		slices.Complex128Insert(-52.6084+155.80287i, &tc.slice, tc.insertAt)
+		if tc.slice[tc.insertAt] != -52.6084+155.80287i {
+			t.Error(tc)
+		}
+	}
+}
+
 func Test_Complex128FastShuffle(t *testing.T) {
 	shuffles := [][]complex128{}
 	for i := 0; i < 8; i++ {
@@ -12,7 +34,7 @@ func Test_Complex128FastShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.Complex128Equals(shuffles[i], shuffles[j]) {
@@ -34,7 +56,7 @@ func Test_Complex128SecureShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.Complex128Equals(shuffles[i], shuffles[j]) {
@@ -72,7 +94,7 @@ func Test_Complex128Equals(t *testing.T) {
 	for _, tc := range tcs {
 		got := slices.Complex128Equals(tc.a, tc.b)
 		if got != tc.exp {
-			t.Error(tc.name)
+			t.Error(tc)
 		}
 	}
 }

@@ -6,6 +6,13 @@ import (
 	"math/rand"
 )
 
+//Int16Insert will append elem at the position i
+func Int16Insert(elem int16, sl *[]int16, i int) {
+	*sl = append(*sl, elem)
+	copy((*sl)[i+1:], (*sl)[i:])
+	(*sl)[i] = elem
+}
+
 //Int16FastShuffle will randomly swap the int16 elements of a slice using math/rand (fast but not cryptographycally secure).
 func Int16FastShuffle(sp []int16) {
 	rand.Shuffle(len(sp), func(i, j int) {
@@ -15,8 +22,8 @@ func Int16FastShuffle(sp []int16) {
 
 //Int16SecureShuffle will randomly swap the int16 elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
 func Int16SecureShuffle(sp []int16) {
-	for i := len(sp) - 1; i > 0; i-- {
-		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(int64(i)))
+	for i := int64(len(sp) - 1); i >= 0; i-- {
+		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(i+1))
 		if err != nil {
 			panic(err)
 		}

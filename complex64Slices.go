@@ -6,6 +6,13 @@ import (
 	"math/rand"
 )
 
+//Complex64Insert will append elem at the position i
+func Complex64Insert(elem complex64, sl *[]complex64, i int) {
+	*sl = append(*sl, elem)
+	copy((*sl)[i+1:], (*sl)[i:])
+	(*sl)[i] = elem
+}
+
 //Complex64FastShuffle will randomly swap the complex64 elements of a slice using math/rand (fast but not cryptographycally secure).
 func Complex64FastShuffle(sp []complex64) {
 	rand.Shuffle(len(sp), func(i, j int) {
@@ -15,8 +22,8 @@ func Complex64FastShuffle(sp []complex64) {
 
 //Complex64SecureShuffle will randomly swap the complex64 elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
 func Complex64SecureShuffle(sp []complex64) {
-	for i := len(sp) - 1; i > 0; i-- {
-		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(int64(i)))
+	for i := int64(len(sp) - 1); i >= 0; i-- {
+		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(i+1))
 		if err != nil {
 			panic(err)
 		}

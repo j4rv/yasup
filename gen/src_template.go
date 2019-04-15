@@ -11,6 +11,13 @@ import (
 	"math/rand"
 )
 
+//{{.TypeCased}}Insert will append elem at the position i
+func {{.TypeCased}}Insert(elem {{.Type}}, sl *[]{{.Type}}, i int) {
+	*sl = append(*sl, elem)
+	copy((*sl)[i+1:], (*sl)[i:])
+	(*sl)[i] = elem
+}
+
 //{{.TypeCased}}FastShuffle will randomly swap the {{.Type}} elements of a slice using math/rand (fast but not cryptographycally secure).
 func {{.TypeCased}}FastShuffle(sp []{{.Type}}) {
 	rand.Shuffle(len(sp), func(i, j int) {
@@ -20,8 +27,8 @@ func {{.TypeCased}}FastShuffle(sp []{{.Type}}) {
 
 //{{.TypeCased}}SecureShuffle will randomly swap the {{.Type}} elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
 func {{.TypeCased}}SecureShuffle(sp []{{.Type}}) {
-	for i := len(sp) - 1; i > 0; i-- {
-		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(int64(i)))
+	for i := int64(len(sp) - 1); i >= 0; i-- {
+		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(i+1))
 		if err != nil {
 			panic(err)
 		}

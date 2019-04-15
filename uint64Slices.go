@@ -6,6 +6,13 @@ import (
 	"math/rand"
 )
 
+//Uint64Insert will append elem at the position i
+func Uint64Insert(elem uint64, sl *[]uint64, i int) {
+	*sl = append(*sl, elem)
+	copy((*sl)[i+1:], (*sl)[i:])
+	(*sl)[i] = elem
+}
+
 //Uint64FastShuffle will randomly swap the uint64 elements of a slice using math/rand (fast but not cryptographycally secure).
 func Uint64FastShuffle(sp []uint64) {
 	rand.Shuffle(len(sp), func(i, j int) {
@@ -15,8 +22,8 @@ func Uint64FastShuffle(sp []uint64) {
 
 //Uint64SecureShuffle will randomly swap the uint64 elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
 func Uint64SecureShuffle(sp []uint64) {
-	for i := len(sp) - 1; i > 0; i-- {
-		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(int64(i)))
+	for i := int64(len(sp) - 1); i >= 0; i-- {
+		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(i+1))
 		if err != nil {
 			panic(err)
 		}

@@ -3,6 +3,28 @@ package slices_test
 import "testing"
 import "github.com/j4rv/slices"
 
+func Test_BoolInsert(t *testing.T) {
+	type testCase struct {
+		name     string
+		slice    []bool
+		insertAt int
+	}
+	base := []bool{true, false, true, false, true, false, true, false, true, false, true, false}
+	tcs := []testCase{
+		{"First", []bool{true, false, true, false, true, false, true, false, true, false, true, false}, 0},
+		{"Middle", []bool{true, false, true, false, true, false, true, false, true, false, true, false}, len(base) / 2},
+		{"Last", []bool{true, false, true, false, true, false, true, false, true, false, true, false}, len(base)},
+		{"Empty slice", []bool{}, 0},
+		{"Nil slice", nil, 0},
+	}
+	for _, tc := range tcs {
+		slices.BoolInsert(false, &tc.slice, tc.insertAt)
+		if tc.slice[tc.insertAt] != false {
+			t.Error(tc)
+		}
+	}
+}
+
 func Test_BoolFastShuffle(t *testing.T) {
 	shuffles := [][]bool{}
 	for i := 0; i < 8; i++ {
@@ -12,7 +34,7 @@ func Test_BoolFastShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.BoolEquals(shuffles[i], shuffles[j]) {
@@ -34,7 +56,7 @@ func Test_BoolSecureShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.BoolEquals(shuffles[i], shuffles[j]) {
@@ -72,7 +94,7 @@ func Test_BoolEquals(t *testing.T) {
 	for _, tc := range tcs {
 		got := slices.BoolEquals(tc.a, tc.b)
 		if got != tc.exp {
-			t.Error(tc.name)
+			t.Error(tc)
 		}
 	}
 }

@@ -6,6 +6,13 @@ import (
 	"math/rand"
 )
 
+//ByteInsert will append elem at the position i
+func ByteInsert(elem byte, sl *[]byte, i int) {
+	*sl = append(*sl, elem)
+	copy((*sl)[i+1:], (*sl)[i:])
+	(*sl)[i] = elem
+}
+
 //ByteFastShuffle will randomly swap the byte elements of a slice using math/rand (fast but not cryptographycally secure).
 func ByteFastShuffle(sp []byte) {
 	rand.Shuffle(len(sp), func(i, j int) {
@@ -15,8 +22,8 @@ func ByteFastShuffle(sp []byte) {
 
 //ByteSecureShuffle will randomly swap the byte elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
 func ByteSecureShuffle(sp []byte) {
-	for i := len(sp) - 1; i > 0; i-- {
-		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(int64(i)))
+	for i := int64(len(sp) - 1); i >= 0; i-- {
+		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(i+1))
 		if err != nil {
 			panic(err)
 		}

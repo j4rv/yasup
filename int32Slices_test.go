@@ -3,6 +3,28 @@ package slices_test
 import "testing"
 import "github.com/j4rv/slices"
 
+func Test_Int32Insert(t *testing.T) {
+	type testCase struct {
+		name     string
+		slice    []int32
+		insertAt int
+	}
+	base := []int32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	tcs := []testCase{
+		{"First", []int32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
+		{"Middle", []int32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
+		{"Last", []int32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
+		{"Empty slice", []int32{}, 0},
+		{"Nil slice", nil, 0},
+	}
+	for _, tc := range tcs {
+		slices.Int32Insert(-2147483648, &tc.slice, tc.insertAt)
+		if tc.slice[tc.insertAt] != -2147483648 {
+			t.Error(tc)
+		}
+	}
+}
+
 func Test_Int32FastShuffle(t *testing.T) {
 	shuffles := [][]int32{}
 	for i := 0; i < 8; i++ {
@@ -12,7 +34,7 @@ func Test_Int32FastShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.Int32Equals(shuffles[i], shuffles[j]) {
@@ -34,7 +56,7 @@ func Test_Int32SecureShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.Int32Equals(shuffles[i], shuffles[j]) {
@@ -72,7 +94,7 @@ func Test_Int32Equals(t *testing.T) {
 	for _, tc := range tcs {
 		got := slices.Int32Equals(tc.a, tc.b)
 		if got != tc.exp {
-			t.Error(tc.name)
+			t.Error(tc)
 		}
 	}
 }

@@ -3,6 +3,28 @@ package slices_test
 import "testing"
 import "github.com/j4rv/slices"
 
+func Test_Uint64Insert(t *testing.T) {
+	type testCase struct {
+		name     string
+		slice    []uint64
+		insertAt int
+	}
+	base := []uint64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	tcs := []testCase{
+		{"First", []uint64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
+		{"Middle", []uint64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
+		{"Last", []uint64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
+		{"Empty slice", []uint64{}, 0},
+		{"Nil slice", nil, 0},
+	}
+	for _, tc := range tcs {
+		slices.Uint64Insert(18446744073709551615, &tc.slice, tc.insertAt)
+		if tc.slice[tc.insertAt] != 18446744073709551615 {
+			t.Error(tc)
+		}
+	}
+}
+
 func Test_Uint64FastShuffle(t *testing.T) {
 	shuffles := [][]uint64{}
 	for i := 0; i < 8; i++ {
@@ -12,7 +34,7 @@ func Test_Uint64FastShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.Uint64Equals(shuffles[i], shuffles[j]) {
@@ -34,7 +56,7 @@ func Test_Uint64SecureShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.Uint64Equals(shuffles[i], shuffles[j]) {
@@ -72,7 +94,7 @@ func Test_Uint64Equals(t *testing.T) {
 	for _, tc := range tcs {
 		got := slices.Uint64Equals(tc.a, tc.b)
 		if got != tc.exp {
-			t.Error(tc.name)
+			t.Error(tc)
 		}
 	}
 }

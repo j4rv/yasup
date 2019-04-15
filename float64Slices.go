@@ -6,6 +6,13 @@ import (
 	"math/rand"
 )
 
+//Float64Insert will append elem at the position i
+func Float64Insert(elem float64, sl *[]float64, i int) {
+	*sl = append(*sl, elem)
+	copy((*sl)[i+1:], (*sl)[i:])
+	(*sl)[i] = elem
+}
+
 //Float64FastShuffle will randomly swap the float64 elements of a slice using math/rand (fast but not cryptographycally secure).
 func Float64FastShuffle(sp []float64) {
 	rand.Shuffle(len(sp), func(i, j int) {
@@ -15,8 +22,8 @@ func Float64FastShuffle(sp []float64) {
 
 //Float64SecureShuffle will randomly swap the float64 elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
 func Float64SecureShuffle(sp []float64) {
-	for i := len(sp) - 1; i > 0; i-- {
-		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(int64(i)))
+	for i := int64(len(sp) - 1); i >= 0; i-- {
+		bigRandI, err := crypto.Int(crypto.Reader, big.NewInt(i+1))
 		if err != nil {
 			panic(err)
 		}

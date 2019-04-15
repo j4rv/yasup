@@ -3,6 +3,28 @@ package slices_test
 import "testing"
 import "github.com/j4rv/slices"
 
+func Test_RuneInsert(t *testing.T) {
+	type testCase struct {
+		name     string
+		slice    []rune
+		insertAt int
+	}
+	base := []rune{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	tcs := []testCase{
+		{"First", []rune{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
+		{"Middle", []rune{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
+		{"Last", []rune{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
+		{"Empty slice", []rune{}, 0},
+		{"Nil slice", nil, 0},
+	}
+	for _, tc := range tcs {
+		slices.RuneInsert(2147483647, &tc.slice, tc.insertAt)
+		if tc.slice[tc.insertAt] != 2147483647 {
+			t.Error(tc)
+		}
+	}
+}
+
 func Test_RuneFastShuffle(t *testing.T) {
 	shuffles := [][]rune{}
 	for i := 0; i < 8; i++ {
@@ -12,7 +34,7 @@ func Test_RuneFastShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.RuneEquals(shuffles[i], shuffles[j]) {
@@ -34,7 +56,7 @@ func Test_RuneSecureShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if slices.RuneEquals(shuffles[i], shuffles[j]) {
@@ -72,7 +94,7 @@ func Test_RuneEquals(t *testing.T) {
 	for _, tc := range tcs {
 		got := slices.RuneEquals(tc.a, tc.b)
 		if got != tc.exp {
-			t.Error(tc.name)
+			t.Error(tc)
 		}
 	}
 }
