@@ -1,6 +1,6 @@
 # Yet Another Slices Utility Package (for Go)
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/J4RV/yasup)](https://goreportcard.com/report/github.com/J4RV/yasup)
+[![Go Report Card](https://goreportcard.com/badge/github.com/J4RV/yasup)](https://goreportcard.com/report/github.com/J4RV/yasup) [![GoDoc](https://godoc.org/github.com/J4RV/yasup?status.svg)](https://godoc.org/github.com/J4RV/yasup)
 
 ### What is it
 
@@ -18,8 +18,6 @@ Current helper functions include:
 - **FrontPop**: pops an element from the start of the slice
 - An **Equals** function for comparing slices
 - **Shuffle** functions: One that uses math/rand and one that uses crypto/rand
-
-Godoc: https://godoc.org/github.com/J4RV/yasup
 
 ### Examples of usage
 
