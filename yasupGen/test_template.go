@@ -43,6 +43,28 @@ func Test_{{.TypeCased}}Insert(t *testing.T) {
 	}
 }
 
+func Test_{{.TypeCased}}Insert(t *testing.T) {
+	type testCase struct {
+		name     string
+		slice    []{{.Type}}
+		insertAt int
+	}
+	base := []{{.Type}}{ {{.MultipleVals}} }
+	tcs := []testCase{
+		testCase{"First", []{{.Type}}{ {{.MultipleVals}} }, 0},
+		testCase{"Middle", []{{.Type}}{ {{.MultipleVals}} }, len(base) / 2},
+		testCase{"Last", []{{.Type}}{ {{.MultipleVals}} }, len(base)},
+		testCase{"Empty slice", []{{.Type}}{}, 0},
+		testCase{"Nil slice", nil, 0},
+	}
+	for _, tc := range tcs {
+		slices.{{.TypeCased}}Insert({{.SingleVal}}, &tc.slice, tc.insertAt)
+		if tc.slice[tc.insertAt] != {{.SingleVal}} {
+			t.Error(tc)
+		}
+	}
+}
+
 func Test_{{.TypeCased}}FastShuffle(t *testing.T) {
 	shuffles := [][]{{.Type}}{}
 	for i := 0; i < 8; i++ {
@@ -52,7 +74,7 @@ func Test_{{.TypeCased}}FastShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if yasup.{{.TypeCased}}Equals(shuffles[i], shuffles[j]) {
@@ -74,7 +96,7 @@ func Test_{{.TypeCased}}SecureShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if yasup.{{.TypeCased}}Equals(shuffles[i], shuffles[j]) {

@@ -29,6 +29,28 @@ func Test_UintInsert(t *testing.T) {
 	}
 }
 
+func Test_UintInsert(t *testing.T) {
+	type testCase struct {
+		name     string
+		slice    []uint
+		insertAt int
+	}
+	base := []uint{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	tcs := []testCase{
+		{"First", []uint{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
+		{"Middle", []uint{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
+		{"Last", []uint{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
+		{"Empty slice", []uint{}, 0},
+		{"Nil slice", nil, 0},
+	}
+	for _, tc := range tcs {
+		slices.UintInsert(4294967295, &tc.slice, tc.insertAt)
+		if tc.slice[tc.insertAt] != 4294967295 {
+			t.Error(tc)
+		}
+	}
+}
+
 func Test_UintFastShuffle(t *testing.T) {
 	shuffles := [][]uint{}
 	for i := 0; i < 8; i++ {
@@ -38,7 +60,7 @@ func Test_UintFastShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if yasup.UintEquals(shuffles[i], shuffles[j]) {
@@ -60,7 +82,7 @@ func Test_UintSecureShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if yasup.UintEquals(shuffles[i], shuffles[j]) {

@@ -29,6 +29,28 @@ func Test_IntInsert(t *testing.T) {
 	}
 }
 
+func Test_IntInsert(t *testing.T) {
+	type testCase struct {
+		name     string
+		slice    []int
+		insertAt int
+	}
+	base := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	tcs := []testCase{
+		{"First", []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
+		{"Middle", []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
+		{"Last", []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
+		{"Empty slice", []int{}, 0},
+		{"Nil slice", nil, 0},
+	}
+	for _, tc := range tcs {
+		slices.IntInsert(-2147483648, &tc.slice, tc.insertAt)
+		if tc.slice[tc.insertAt] != -2147483648 {
+			t.Error(tc)
+		}
+	}
+}
+
 func Test_IntFastShuffle(t *testing.T) {
 	shuffles := [][]int{}
 	for i := 0; i < 8; i++ {
@@ -38,7 +60,7 @@ func Test_IntFastShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if yasup.IntEquals(shuffles[i], shuffles[j]) {
@@ -60,7 +82,7 @@ func Test_IntSecureShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if yasup.IntEquals(shuffles[i], shuffles[j]) {

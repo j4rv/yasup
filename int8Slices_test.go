@@ -29,6 +29,28 @@ func Test_Int8Insert(t *testing.T) {
 	}
 }
 
+func Test_Int8Insert(t *testing.T) {
+	type testCase struct {
+		name     string
+		slice    []int8
+		insertAt int
+	}
+	base := []int8{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	tcs := []testCase{
+		{"First", []int8{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
+		{"Middle", []int8{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
+		{"Last", []int8{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
+		{"Empty slice", []int8{}, 0},
+		{"Nil slice", nil, 0},
+	}
+	for _, tc := range tcs {
+		slices.Int8Insert(-128, &tc.slice, tc.insertAt)
+		if tc.slice[tc.insertAt] != -128 {
+			t.Error(tc)
+		}
+	}
+}
+
 func Test_Int8FastShuffle(t *testing.T) {
 	shuffles := [][]int8{}
 	for i := 0; i < 8; i++ {
@@ -38,7 +60,7 @@ func Test_Int8FastShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if yasup.Int8Equals(shuffles[i], shuffles[j]) {
@@ -60,7 +82,7 @@ func Test_Int8SecureShuffle(t *testing.T) {
 	}
 	for i := range shuffles {
 		for j := range shuffles {
-			if i == j {
+			if i >= j {
 				continue
 			}
 			if yasup.Int8Equals(shuffles[i], shuffles[j]) {
