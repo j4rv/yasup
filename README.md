@@ -1,13 +1,29 @@
-## 'slices' makes working with basic type slices easier and more clear
+[![Go Report Card](https://goreportcard.com/badge/github.com/J4RV/yasup)](https://goreportcard.com/report/github.com/J4RV/yasup)
 
-Want to shuffle an int array/slice or compare two float64 arrays/slices? Just do:
+# Yet Another Slices Utility Package
 
-`slices.IntShuffle(&myInts)`  
-`eq := slices.Float64Equals(myFloats, yourFloats)`
+### What is it
 
-Supports all basic types, and you can add your own types by using the script in the 'factory' directory.  
-You will just need to pass some values to the script and it will generate your slices methods by executing a template.
+An auto-generated library that contains utility functions for primitive types and a code generator tool that you can use for your custom types.
 
-For example, executing the following command in the factory folder will generate the `int` .go files that exist in the root folder of this repository:  
-`go run . -type int --test -singleVal -2147483648 -multipleVals="0, 1, 2, 3, 4, 5, 6, 7, 8, 9"`  
-The singleVal and multipleVals flag values will be used to auto-generate the tests.
+Current utility functions include:
+
+- **Insert** an element at a given index
+- **Delete** an element at a given index
+- **Push** an element
+- **Pop** an element
+- An **Equals** function for comparing slices
+- **Shuffle** functions: One that uses math/rand and another one that uses crypto/rand.
+
+### Example code
+
+Simple to use, see the **/example/main.go**. It is runnable code that shows how to use many of the YASUP functions.
+
+Or you can just run this command to see what that code does:
+
+```
+go get github.com/J4RV/yasup
+go run github.com/J4RV/yasup/example
+```
+
+To create YASUP functions for non primitive types, see **/example/genericStructExample.go**
