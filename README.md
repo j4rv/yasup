@@ -1,10 +1,10 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/J4RV/yasup)](https://goreportcard.com/report/github.com/J4RV/yasup)
-
 # Yet Another Slices Utility Package (for Go)
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/J4RV/yasup)](https://goreportcard.com/report/github.com/J4RV/yasup)
 
 ### What is it
 
-An auto-generated library that contains helper functions for primitive types and a **code generator tool** that you can use for your custom types.
+An auto-generated library that contains helper functions for primitive type slices and a **code generator tool** that you can use for your custom types.
 
 Current helper functions include:
 
@@ -16,7 +16,7 @@ Current helper functions include:
 - **FrontPush**: pushes an element to the start of the slice
 - **FrontPop**: pops an element from the start of the slice
 - An **Equals** function for comparing slices
-- **Shuffle** functions: One that uses math/rand and another one that uses crypto/rand
+- **Shuffle** functions: One that uses math/rand and one that uses crypto/rand
 
 ### Example code
 
