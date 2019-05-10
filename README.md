@@ -19,15 +19,23 @@ Current helper functions include:
 - An **Equals** function for comparing slices
 - **Shuffle** functions: One that uses math/rand and one that uses crypto/rand
 
+Godoc: https://godoc.org/github.com/J4RV/yasup
+
 ### Examples of usage
 
-Simple to use! See the **/examples/main.go**. It is runnable code that shows how to use many of the YASUP functions.
+YASUP is simple to use!
 
-Or you can just run the following command to see what that code does:
+##### Using the library for slices of primitive types
+
+See [examples/main.go](https://github.com/J4RV/yasup/blob/master/examples/main.go). It is runnable code that shows how to use many of the YASUP functions.
+
+You can run the following command to see what that code prints:
 
 ```
 go get github.com/J4RV/yasup
 go run github.com/J4RV/yasup/examples
 ```
 
-To create YASUP functions for non primitive or custom types, see **/examples/genericStructExample.go**
+##### Using the generator tool for custom types
+
+For an example about creating YASUP helper functions for non primitive or custom types, see [examples/genericStructExample.bat](https://github.com/J4RV/yasup/blob/master/examples/genericStructExample.bat).
