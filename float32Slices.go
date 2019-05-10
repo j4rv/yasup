@@ -8,6 +8,8 @@ import (
 	"math/rand"
 )
 
+var zeroValueFloat32 float32
+
 //Float32Contains will return true if elem is present in the slice and false otherwise.
 func Float32Contains(sl []float32, elem float32) bool {
 	for i := range sl {
@@ -43,15 +45,29 @@ func Float32Push(sl *[]float32, elem float32) {
 	Float32Insert(sl, elem, len(*sl))
 }
 
+//Float32FrontPush is equivalent to Float32Insert with index 0
+func Float32FrontPush(sl *[]float32, elem float32) {
+	Float32Insert(sl, elem, 0)
+}
+
 //Float32Pop is equivalent to getting and removing the last element of the slice. Might return ErrEmptySlice.
 func Float32Pop(sl *[]float32) (float32, error) {
 	if len(*sl) == 0 {
-		var zeroVal float32
-		return zeroVal, ErrEmptySlice
+		return zeroValueFloat32, ErrEmptySlice
 	}
 	last := len(*sl) - 1
 	ret := (*sl)[last]
 	Float32Delete(sl, last)
+	return ret, nil
+}
+
+//Float32Pop is equivalent to getting and removing the first element of the slice. Might return ErrEmptySlice.
+func Float32FrontPop(sl *[]float32) (float32, error) {
+	if len(*sl) == 0 {
+		return zeroValueFloat32, ErrEmptySlice
+	}
+	ret := (*sl)[0]
+	Float32Delete(sl, 0)
 	return ret, nil
 }
 

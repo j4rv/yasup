@@ -8,6 +8,8 @@ import (
 	"math/rand"
 )
 
+var zeroValueRune rune
+
 //RuneContains will return true if elem is present in the slice and false otherwise.
 func RuneContains(sl []rune, elem rune) bool {
 	for i := range sl {
@@ -43,15 +45,29 @@ func RunePush(sl *[]rune, elem rune) {
 	RuneInsert(sl, elem, len(*sl))
 }
 
+//RuneFrontPush is equivalent to RuneInsert with index 0
+func RuneFrontPush(sl *[]rune, elem rune) {
+	RuneInsert(sl, elem, 0)
+}
+
 //RunePop is equivalent to getting and removing the last element of the slice. Might return ErrEmptySlice.
 func RunePop(sl *[]rune) (rune, error) {
 	if len(*sl) == 0 {
-		var zeroVal rune
-		return zeroVal, ErrEmptySlice
+		return zeroValueRune, ErrEmptySlice
 	}
 	last := len(*sl) - 1
 	ret := (*sl)[last]
 	RuneDelete(sl, last)
+	return ret, nil
+}
+
+//RunePop is equivalent to getting and removing the first element of the slice. Might return ErrEmptySlice.
+func RuneFrontPop(sl *[]rune) (rune, error) {
+	if len(*sl) == 0 {
+		return zeroValueRune, ErrEmptySlice
+	}
+	ret := (*sl)[0]
+	RuneDelete(sl, 0)
 	return ret, nil
 }
 

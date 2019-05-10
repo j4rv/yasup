@@ -8,6 +8,8 @@ import (
 	"math/rand"
 )
 
+var zeroValueComplex64 complex64
+
 //Complex64Contains will return true if elem is present in the slice and false otherwise.
 func Complex64Contains(sl []complex64, elem complex64) bool {
 	for i := range sl {
@@ -43,15 +45,29 @@ func Complex64Push(sl *[]complex64, elem complex64) {
 	Complex64Insert(sl, elem, len(*sl))
 }
 
+//Complex64FrontPush is equivalent to Complex64Insert with index 0
+func Complex64FrontPush(sl *[]complex64, elem complex64) {
+	Complex64Insert(sl, elem, 0)
+}
+
 //Complex64Pop is equivalent to getting and removing the last element of the slice. Might return ErrEmptySlice.
 func Complex64Pop(sl *[]complex64) (complex64, error) {
 	if len(*sl) == 0 {
-		var zeroVal complex64
-		return zeroVal, ErrEmptySlice
+		return zeroValueComplex64, ErrEmptySlice
 	}
 	last := len(*sl) - 1
 	ret := (*sl)[last]
 	Complex64Delete(sl, last)
+	return ret, nil
+}
+
+//Complex64Pop is equivalent to getting and removing the first element of the slice. Might return ErrEmptySlice.
+func Complex64FrontPop(sl *[]complex64) (complex64, error) {
+	if len(*sl) == 0 {
+		return zeroValueComplex64, ErrEmptySlice
+	}
+	ret := (*sl)[0]
+	Complex64Delete(sl, 0)
 	return ret, nil
 }
 

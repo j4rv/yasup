@@ -8,6 +8,8 @@ import (
 	"math/rand"
 )
 
+var zeroValueByte byte
+
 //ByteContains will return true if elem is present in the slice and false otherwise.
 func ByteContains(sl []byte, elem byte) bool {
 	for i := range sl {
@@ -43,15 +45,29 @@ func BytePush(sl *[]byte, elem byte) {
 	ByteInsert(sl, elem, len(*sl))
 }
 
+//ByteFrontPush is equivalent to ByteInsert with index 0
+func ByteFrontPush(sl *[]byte, elem byte) {
+	ByteInsert(sl, elem, 0)
+}
+
 //BytePop is equivalent to getting and removing the last element of the slice. Might return ErrEmptySlice.
 func BytePop(sl *[]byte) (byte, error) {
 	if len(*sl) == 0 {
-		var zeroVal byte
-		return zeroVal, ErrEmptySlice
+		return zeroValueByte, ErrEmptySlice
 	}
 	last := len(*sl) - 1
 	ret := (*sl)[last]
 	ByteDelete(sl, last)
+	return ret, nil
+}
+
+//BytePop is equivalent to getting and removing the first element of the slice. Might return ErrEmptySlice.
+func ByteFrontPop(sl *[]byte) (byte, error) {
+	if len(*sl) == 0 {
+		return zeroValueByte, ErrEmptySlice
+	}
+	ret := (*sl)[0]
+	ByteDelete(sl, 0)
 	return ret, nil
 }
 

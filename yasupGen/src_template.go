@@ -4,9 +4,6 @@ import "text/template"
 
 /*
   TODO new:
-  FrontPush(slice, val)
-  FrontPop(slice) (val, error)
-  Contains(slice, val) bool
   Count(slice, val) int
   Index(slice, val) int
   LastIndex(slice, val) int
@@ -25,6 +22,8 @@ import (
 	"math/rand"
 	{{ if .TypePackage }}"{{ .TypePackage }}"{{ end }}
 )
+
+var zeroValue{{.TypeCased}} {{.Type}}
 
 //{{.TypeCased}}Contains will return true if elem is present in the slice and false otherwise.
 func {{.TypeCased}}Contains(sl []{{.Type}}, elem {{.Type}}) bool {
@@ -61,15 +60,29 @@ func {{.TypeCased}}Push(sl *[]{{.Type}}, elem {{.Type}}) {
 	{{.TypeCased}}Insert(sl, elem, len(*sl))
 }
 
+//{{.TypeCased}}FrontPush is equivalent to {{.TypeCased}}Insert with index 0
+func {{.TypeCased}}FrontPush(sl *[]{{.Type}}, elem {{.Type}}) {
+	{{.TypeCased}}Insert(sl, elem, 0)
+}
+
 //{{.TypeCased}}Pop is equivalent to getting and removing the last element of the slice. Might return ErrEmptySlice.
 func {{.TypeCased}}Pop(sl *[]{{.Type}}) ({{.Type}}, error) {
 	if len(*sl) == 0 {
-		var zeroVal {{.Type}}
-		return zeroVal, ErrEmptySlice
+		return zeroValue{{.TypeCased}}, ErrEmptySlice
 	}
 	last := len(*sl) - 1
 	ret := (*sl)[last]
 	{{.TypeCased}}Delete(sl, last)
+	return ret, nil
+}
+
+//{{.TypeCased}}Pop is equivalent to getting and removing the first element of the slice. Might return ErrEmptySlice.
+func {{.TypeCased}}FrontPop(sl *[]{{.Type}}) ({{.Type}}, error) {
+	if len(*sl) == 0 {
+		return zeroValue{{.TypeCased}}, ErrEmptySlice
+	}
+	ret := (*sl)[0]
+	{{.TypeCased}}Delete(sl, 0)
 	return ret, nil
 }
 

@@ -8,6 +8,8 @@ import (
 	"math/rand"
 )
 
+var zeroValueComplex128 complex128
+
 //Complex128Contains will return true if elem is present in the slice and false otherwise.
 func Complex128Contains(sl []complex128, elem complex128) bool {
 	for i := range sl {
@@ -43,15 +45,29 @@ func Complex128Push(sl *[]complex128, elem complex128) {
 	Complex128Insert(sl, elem, len(*sl))
 }
 
+//Complex128FrontPush is equivalent to Complex128Insert with index 0
+func Complex128FrontPush(sl *[]complex128, elem complex128) {
+	Complex128Insert(sl, elem, 0)
+}
+
 //Complex128Pop is equivalent to getting and removing the last element of the slice. Might return ErrEmptySlice.
 func Complex128Pop(sl *[]complex128) (complex128, error) {
 	if len(*sl) == 0 {
-		var zeroVal complex128
-		return zeroVal, ErrEmptySlice
+		return zeroValueComplex128, ErrEmptySlice
 	}
 	last := len(*sl) - 1
 	ret := (*sl)[last]
 	Complex128Delete(sl, last)
+	return ret, nil
+}
+
+//Complex128Pop is equivalent to getting and removing the first element of the slice. Might return ErrEmptySlice.
+func Complex128FrontPop(sl *[]complex128) (complex128, error) {
+	if len(*sl) == 0 {
+		return zeroValueComplex128, ErrEmptySlice
+	}
+	ret := (*sl)[0]
+	Complex128Delete(sl, 0)
 	return ret, nil
 }
 

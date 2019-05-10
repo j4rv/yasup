@@ -8,6 +8,8 @@ import (
 	"math/rand"
 )
 
+var zeroValueUint32 uint32
+
 //Uint32Contains will return true if elem is present in the slice and false otherwise.
 func Uint32Contains(sl []uint32, elem uint32) bool {
 	for i := range sl {
@@ -43,15 +45,29 @@ func Uint32Push(sl *[]uint32, elem uint32) {
 	Uint32Insert(sl, elem, len(*sl))
 }
 
+//Uint32FrontPush is equivalent to Uint32Insert with index 0
+func Uint32FrontPush(sl *[]uint32, elem uint32) {
+	Uint32Insert(sl, elem, 0)
+}
+
 //Uint32Pop is equivalent to getting and removing the last element of the slice. Might return ErrEmptySlice.
 func Uint32Pop(sl *[]uint32) (uint32, error) {
 	if len(*sl) == 0 {
-		var zeroVal uint32
-		return zeroVal, ErrEmptySlice
+		return zeroValueUint32, ErrEmptySlice
 	}
 	last := len(*sl) - 1
 	ret := (*sl)[last]
 	Uint32Delete(sl, last)
+	return ret, nil
+}
+
+//Uint32Pop is equivalent to getting and removing the first element of the slice. Might return ErrEmptySlice.
+func Uint32FrontPop(sl *[]uint32) (uint32, error) {
+	if len(*sl) == 0 {
+		return zeroValueUint32, ErrEmptySlice
+	}
+	ret := (*sl)[0]
+	Uint32Delete(sl, 0)
 	return ret, nil
 }
 

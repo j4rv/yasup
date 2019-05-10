@@ -8,6 +8,8 @@ import (
 	"math/rand"
 )
 
+var zeroValueString string
+
 //StringContains will return true if elem is present in the slice and false otherwise.
 func StringContains(sl []string, elem string) bool {
 	for i := range sl {
@@ -43,15 +45,29 @@ func StringPush(sl *[]string, elem string) {
 	StringInsert(sl, elem, len(*sl))
 }
 
+//StringFrontPush is equivalent to StringInsert with index 0
+func StringFrontPush(sl *[]string, elem string) {
+	StringInsert(sl, elem, 0)
+}
+
 //StringPop is equivalent to getting and removing the last element of the slice. Might return ErrEmptySlice.
 func StringPop(sl *[]string) (string, error) {
 	if len(*sl) == 0 {
-		var zeroVal string
-		return zeroVal, ErrEmptySlice
+		return zeroValueString, ErrEmptySlice
 	}
 	last := len(*sl) - 1
 	ret := (*sl)[last]
 	StringDelete(sl, last)
+	return ret, nil
+}
+
+//StringPop is equivalent to getting and removing the first element of the slice. Might return ErrEmptySlice.
+func StringFrontPop(sl *[]string) (string, error) {
+	if len(*sl) == 0 {
+		return zeroValueString, ErrEmptySlice
+	}
+	ret := (*sl)[0]
+	StringDelete(sl, 0)
 	return ret, nil
 }
 

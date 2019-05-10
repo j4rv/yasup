@@ -8,6 +8,9 @@ import "text/template"
    * Delete
    * Pop
    * Push
+   * FrontPush
+   * FrontPop
+   * Contains
 */
 
 var testTemplate = template.Must(template.New("").Parse(`
@@ -37,7 +40,7 @@ func Test_{{.TypeCased}}Insert(t *testing.T) {
 	}
 	for _, tc := range tcs {
 		yasup.{{.TypeCased}}Insert(&tc.slice, {{.SingleVal}}, tc.insertAt)
-		if tc.slice[tc.insertAt] != {{.SingleVal}} {
+		if tc.slice[tc.insertAt] != ({{.SingleVal}}) {
 			t.Error(tc)
 		}
 	}

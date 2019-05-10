@@ -8,6 +8,8 @@ import (
 	"math/rand"
 )
 
+var zeroValueInt64 int64
+
 //Int64Contains will return true if elem is present in the slice and false otherwise.
 func Int64Contains(sl []int64, elem int64) bool {
 	for i := range sl {
@@ -43,15 +45,29 @@ func Int64Push(sl *[]int64, elem int64) {
 	Int64Insert(sl, elem, len(*sl))
 }
 
+//Int64FrontPush is equivalent to Int64Insert with index 0
+func Int64FrontPush(sl *[]int64, elem int64) {
+	Int64Insert(sl, elem, 0)
+}
+
 //Int64Pop is equivalent to getting and removing the last element of the slice. Might return ErrEmptySlice.
 func Int64Pop(sl *[]int64) (int64, error) {
 	if len(*sl) == 0 {
-		var zeroVal int64
-		return zeroVal, ErrEmptySlice
+		return zeroValueInt64, ErrEmptySlice
 	}
 	last := len(*sl) - 1
 	ret := (*sl)[last]
 	Int64Delete(sl, last)
+	return ret, nil
+}
+
+//Int64Pop is equivalent to getting and removing the first element of the slice. Might return ErrEmptySlice.
+func Int64FrontPop(sl *[]int64) (int64, error) {
+	if len(*sl) == 0 {
+		return zeroValueInt64, ErrEmptySlice
+	}
+	ret := (*sl)[0]
+	Int64Delete(sl, 0)
 	return ret, nil
 }
 

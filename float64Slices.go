@@ -8,6 +8,8 @@ import (
 	"math/rand"
 )
 
+var zeroValueFloat64 float64
+
 //Float64Contains will return true if elem is present in the slice and false otherwise.
 func Float64Contains(sl []float64, elem float64) bool {
 	for i := range sl {
@@ -43,15 +45,29 @@ func Float64Push(sl *[]float64, elem float64) {
 	Float64Insert(sl, elem, len(*sl))
 }
 
+//Float64FrontPush is equivalent to Float64Insert with index 0
+func Float64FrontPush(sl *[]float64, elem float64) {
+	Float64Insert(sl, elem, 0)
+}
+
 //Float64Pop is equivalent to getting and removing the last element of the slice. Might return ErrEmptySlice.
 func Float64Pop(sl *[]float64) (float64, error) {
 	if len(*sl) == 0 {
-		var zeroVal float64
-		return zeroVal, ErrEmptySlice
+		return zeroValueFloat64, ErrEmptySlice
 	}
 	last := len(*sl) - 1
 	ret := (*sl)[last]
 	Float64Delete(sl, last)
+	return ret, nil
+}
+
+//Float64Pop is equivalent to getting and removing the first element of the slice. Might return ErrEmptySlice.
+func Float64FrontPop(sl *[]float64) (float64, error) {
+	if len(*sl) == 0 {
+		return zeroValueFloat64, ErrEmptySlice
+	}
+	ret := (*sl)[0]
+	Float64Delete(sl, 0)
 	return ret, nil
 }
 

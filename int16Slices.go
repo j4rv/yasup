@@ -8,6 +8,8 @@ import (
 	"math/rand"
 )
 
+var zeroValueInt16 int16
+
 //Int16Contains will return true if elem is present in the slice and false otherwise.
 func Int16Contains(sl []int16, elem int16) bool {
 	for i := range sl {
@@ -43,15 +45,29 @@ func Int16Push(sl *[]int16, elem int16) {
 	Int16Insert(sl, elem, len(*sl))
 }
 
+//Int16FrontPush is equivalent to Int16Insert with index 0
+func Int16FrontPush(sl *[]int16, elem int16) {
+	Int16Insert(sl, elem, 0)
+}
+
 //Int16Pop is equivalent to getting and removing the last element of the slice. Might return ErrEmptySlice.
 func Int16Pop(sl *[]int16) (int16, error) {
 	if len(*sl) == 0 {
-		var zeroVal int16
-		return zeroVal, ErrEmptySlice
+		return zeroValueInt16, ErrEmptySlice
 	}
 	last := len(*sl) - 1
 	ret := (*sl)[last]
 	Int16Delete(sl, last)
+	return ret, nil
+}
+
+//Int16Pop is equivalent to getting and removing the first element of the slice. Might return ErrEmptySlice.
+func Int16FrontPop(sl *[]int16) (int16, error) {
+	if len(*sl) == 0 {
+		return zeroValueInt16, ErrEmptySlice
+	}
+	ret := (*sl)[0]
+	Int16Delete(sl, 0)
 	return ret, nil
 }
 

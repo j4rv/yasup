@@ -8,6 +8,8 @@ import (
 	"math/rand"
 )
 
+var zeroValueUint8 uint8
+
 //Uint8Contains will return true if elem is present in the slice and false otherwise.
 func Uint8Contains(sl []uint8, elem uint8) bool {
 	for i := range sl {
@@ -43,15 +45,29 @@ func Uint8Push(sl *[]uint8, elem uint8) {
 	Uint8Insert(sl, elem, len(*sl))
 }
 
+//Uint8FrontPush is equivalent to Uint8Insert with index 0
+func Uint8FrontPush(sl *[]uint8, elem uint8) {
+	Uint8Insert(sl, elem, 0)
+}
+
 //Uint8Pop is equivalent to getting and removing the last element of the slice. Might return ErrEmptySlice.
 func Uint8Pop(sl *[]uint8) (uint8, error) {
 	if len(*sl) == 0 {
-		var zeroVal uint8
-		return zeroVal, ErrEmptySlice
+		return zeroValueUint8, ErrEmptySlice
 	}
 	last := len(*sl) - 1
 	ret := (*sl)[last]
 	Uint8Delete(sl, last)
+	return ret, nil
+}
+
+//Uint8Pop is equivalent to getting and removing the first element of the slice. Might return ErrEmptySlice.
+func Uint8FrontPop(sl *[]uint8) (uint8, error) {
+	if len(*sl) == 0 {
+		return zeroValueUint8, ErrEmptySlice
+	}
+	ret := (*sl)[0]
+	Uint8Delete(sl, 0)
 	return ret, nil
 }
 

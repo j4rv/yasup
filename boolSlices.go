@@ -8,6 +8,8 @@ import (
 	"math/rand"
 )
 
+var zeroValueBool bool
+
 //BoolContains will return true if elem is present in the slice and false otherwise.
 func BoolContains(sl []bool, elem bool) bool {
 	for i := range sl {
@@ -43,15 +45,29 @@ func BoolPush(sl *[]bool, elem bool) {
 	BoolInsert(sl, elem, len(*sl))
 }
 
+//BoolFrontPush is equivalent to BoolInsert with index 0
+func BoolFrontPush(sl *[]bool, elem bool) {
+	BoolInsert(sl, elem, 0)
+}
+
 //BoolPop is equivalent to getting and removing the last element of the slice. Might return ErrEmptySlice.
 func BoolPop(sl *[]bool) (bool, error) {
 	if len(*sl) == 0 {
-		var zeroVal bool
-		return zeroVal, ErrEmptySlice
+		return zeroValueBool, ErrEmptySlice
 	}
 	last := len(*sl) - 1
 	ret := (*sl)[last]
 	BoolDelete(sl, last)
+	return ret, nil
+}
+
+//BoolPop is equivalent to getting and removing the first element of the slice. Might return ErrEmptySlice.
+func BoolFrontPop(sl *[]bool) (bool, error) {
+	if len(*sl) == 0 {
+		return zeroValueBool, ErrEmptySlice
+	}
+	ret := (*sl)[0]
+	BoolDelete(sl, 0)
 	return ret, nil
 }
 

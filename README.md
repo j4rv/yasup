@@ -6,14 +6,17 @@
 
 An auto-generated library that contains helper functions for primitive types and a **code generator tool** that you can use for your custom types.
 
-Current utility functions include:
+Current helper functions include:
 
+- **Contains** an element
 - **Insert** an element at a given index
 - **Delete** an element at a given index
-- **Push** an element
-- **Pop** an element
+- **Push** an element to the end of the slice
+- **Pop** an element from the end of the slice
+- **FrontPush**: pushes an element to the start of the slice
+- **FrontPop**: pops an element from the start of the slice
 - An **Equals** function for comparing slices
-- **Shuffle** functions: One that uses math/rand and another one that uses crypto/rand.
+- **Shuffle** functions: One that uses math/rand and another one that uses crypto/rand
 
 ### Example code
 
