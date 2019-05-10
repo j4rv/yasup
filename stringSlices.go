@@ -50,12 +50,12 @@ func StringIndex(sl []string, elem string) int {
 	return -1
 }
 
-//StringPush is equivalent to StringInsert with index len(*sl)
+//StringPush is equivalent to StringInsert with index len(*sl).
 func StringPush(sl *[]string, elem string) {
 	StringInsert(sl, elem, len(*sl))
 }
 
-//StringFrontPush is equivalent to StringInsert with index 0
+//StringFrontPush is equivalent to StringInsert with index 0.
 func StringFrontPush(sl *[]string, elem string) {
 	StringInsert(sl, elem, 0)
 }
@@ -101,7 +101,7 @@ func StringFastShuffle(sp []string) {
 	})
 }
 
-//StringSecureShuffle will randomly swap the string elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
+//StringSecureShuffle will randomly swap the string elements of a slice using crypto/rand (resource intensive but cryptographically secure).
 func StringSecureShuffle(sp []string) error {
 	var i int64
 	size := int64(len(sp)) - 1

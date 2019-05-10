@@ -50,12 +50,12 @@ func Int32Index(sl []int32, elem int32) int {
 	return -1
 }
 
-//Int32Push is equivalent to Int32Insert with index len(*sl)
+//Int32Push is equivalent to Int32Insert with index len(*sl).
 func Int32Push(sl *[]int32, elem int32) {
 	Int32Insert(sl, elem, len(*sl))
 }
 
-//Int32FrontPush is equivalent to Int32Insert with index 0
+//Int32FrontPush is equivalent to Int32Insert with index 0.
 func Int32FrontPush(sl *[]int32, elem int32) {
 	Int32Insert(sl, elem, 0)
 }
@@ -101,7 +101,7 @@ func Int32FastShuffle(sp []int32) {
 	})
 }
 
-//Int32SecureShuffle will randomly swap the int32 elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
+//Int32SecureShuffle will randomly swap the int32 elements of a slice using crypto/rand (resource intensive but cryptographically secure).
 func Int32SecureShuffle(sp []int32) error {
 	var i int64
 	size := int64(len(sp)) - 1

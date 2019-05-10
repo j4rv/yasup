@@ -50,12 +50,12 @@ func Int64Index(sl []int64, elem int64) int {
 	return -1
 }
 
-//Int64Push is equivalent to Int64Insert with index len(*sl)
+//Int64Push is equivalent to Int64Insert with index len(*sl).
 func Int64Push(sl *[]int64, elem int64) {
 	Int64Insert(sl, elem, len(*sl))
 }
 
-//Int64FrontPush is equivalent to Int64Insert with index 0
+//Int64FrontPush is equivalent to Int64Insert with index 0.
 func Int64FrontPush(sl *[]int64, elem int64) {
 	Int64Insert(sl, elem, 0)
 }
@@ -101,7 +101,7 @@ func Int64FastShuffle(sp []int64) {
 	})
 }
 
-//Int64SecureShuffle will randomly swap the int64 elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
+//Int64SecureShuffle will randomly swap the int64 elements of a slice using crypto/rand (resource intensive but cryptographically secure).
 func Int64SecureShuffle(sp []int64) error {
 	var i int64
 	size := int64(len(sp)) - 1

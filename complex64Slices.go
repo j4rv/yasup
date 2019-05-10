@@ -50,12 +50,12 @@ func Complex64Index(sl []complex64, elem complex64) int {
 	return -1
 }
 
-//Complex64Push is equivalent to Complex64Insert with index len(*sl)
+//Complex64Push is equivalent to Complex64Insert with index len(*sl).
 func Complex64Push(sl *[]complex64, elem complex64) {
 	Complex64Insert(sl, elem, len(*sl))
 }
 
-//Complex64FrontPush is equivalent to Complex64Insert with index 0
+//Complex64FrontPush is equivalent to Complex64Insert with index 0.
 func Complex64FrontPush(sl *[]complex64, elem complex64) {
 	Complex64Insert(sl, elem, 0)
 }
@@ -101,7 +101,7 @@ func Complex64FastShuffle(sp []complex64) {
 	})
 }
 
-//Complex64SecureShuffle will randomly swap the complex64 elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
+//Complex64SecureShuffle will randomly swap the complex64 elements of a slice using crypto/rand (resource intensive but cryptographically secure).
 func Complex64SecureShuffle(sp []complex64) error {
 	var i int64
 	size := int64(len(sp)) - 1

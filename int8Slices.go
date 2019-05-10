@@ -50,12 +50,12 @@ func Int8Index(sl []int8, elem int8) int {
 	return -1
 }
 
-//Int8Push is equivalent to Int8Insert with index len(*sl)
+//Int8Push is equivalent to Int8Insert with index len(*sl).
 func Int8Push(sl *[]int8, elem int8) {
 	Int8Insert(sl, elem, len(*sl))
 }
 
-//Int8FrontPush is equivalent to Int8Insert with index 0
+//Int8FrontPush is equivalent to Int8Insert with index 0.
 func Int8FrontPush(sl *[]int8, elem int8) {
 	Int8Insert(sl, elem, 0)
 }
@@ -101,7 +101,7 @@ func Int8FastShuffle(sp []int8) {
 	})
 }
 
-//Int8SecureShuffle will randomly swap the int8 elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
+//Int8SecureShuffle will randomly swap the int8 elements of a slice using crypto/rand (resource intensive but cryptographically secure).
 func Int8SecureShuffle(sp []int8) error {
 	var i int64
 	size := int64(len(sp)) - 1

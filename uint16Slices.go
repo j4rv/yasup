@@ -50,12 +50,12 @@ func Uint16Index(sl []uint16, elem uint16) int {
 	return -1
 }
 
-//Uint16Push is equivalent to Uint16Insert with index len(*sl)
+//Uint16Push is equivalent to Uint16Insert with index len(*sl).
 func Uint16Push(sl *[]uint16, elem uint16) {
 	Uint16Insert(sl, elem, len(*sl))
 }
 
-//Uint16FrontPush is equivalent to Uint16Insert with index 0
+//Uint16FrontPush is equivalent to Uint16Insert with index 0.
 func Uint16FrontPush(sl *[]uint16, elem uint16) {
 	Uint16Insert(sl, elem, 0)
 }
@@ -101,7 +101,7 @@ func Uint16FastShuffle(sp []uint16) {
 	})
 }
 
-//Uint16SecureShuffle will randomly swap the uint16 elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
+//Uint16SecureShuffle will randomly swap the uint16 elements of a slice using crypto/rand (resource intensive but cryptographically secure).
 func Uint16SecureShuffle(sp []uint16) error {
 	var i int64
 	size := int64(len(sp)) - 1

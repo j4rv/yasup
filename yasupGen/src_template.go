@@ -64,12 +64,12 @@ func {{.TypeCased}}Index(sl []{{.Type}}, elem {{.Type}}) int {
 	return -1
 }
 
-//{{.TypeCased}}Push is equivalent to {{.TypeCased}}Insert with index len(*sl)
+//{{.TypeCased}}Push is equivalent to {{.TypeCased}}Insert with index len(*sl).
 func {{.TypeCased}}Push(sl *[]{{.Type}}, elem {{.Type}}) {
 	{{.TypeCased}}Insert(sl, elem, len(*sl))
 }
 
-//{{.TypeCased}}FrontPush is equivalent to {{.TypeCased}}Insert with index 0
+//{{.TypeCased}}FrontPush is equivalent to {{.TypeCased}}Insert with index 0.
 func {{.TypeCased}}FrontPush(sl *[]{{.Type}}, elem {{.Type}}) {
 	{{.TypeCased}}Insert(sl, elem, 0)
 }
@@ -115,7 +115,7 @@ func {{.TypeCased}}FastShuffle(sp []{{.Type}}) {
 	})
 }
 
-//{{.TypeCased}}SecureShuffle will randomly swap the {{.Type}} elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
+//{{.TypeCased}}SecureShuffle will randomly swap the {{.Type}} elements of a slice using crypto/rand (resource intensive but cryptographically secure).
 func {{.TypeCased}}SecureShuffle(sp []{{.Type}}) error {
 	var i int64
 	size := int64(len(sp))-1

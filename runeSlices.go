@@ -50,12 +50,12 @@ func RuneIndex(sl []rune, elem rune) int {
 	return -1
 }
 
-//RunePush is equivalent to RuneInsert with index len(*sl)
+//RunePush is equivalent to RuneInsert with index len(*sl).
 func RunePush(sl *[]rune, elem rune) {
 	RuneInsert(sl, elem, len(*sl))
 }
 
-//RuneFrontPush is equivalent to RuneInsert with index 0
+//RuneFrontPush is equivalent to RuneInsert with index 0.
 func RuneFrontPush(sl *[]rune, elem rune) {
 	RuneInsert(sl, elem, 0)
 }
@@ -101,7 +101,7 @@ func RuneFastShuffle(sp []rune) {
 	})
 }
 
-//RuneSecureShuffle will randomly swap the rune elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
+//RuneSecureShuffle will randomly swap the rune elements of a slice using crypto/rand (resource intensive but cryptographically secure).
 func RuneSecureShuffle(sp []rune) error {
 	var i int64
 	size := int64(len(sp)) - 1

@@ -50,12 +50,12 @@ func BoolIndex(sl []bool, elem bool) int {
 	return -1
 }
 
-//BoolPush is equivalent to BoolInsert with index len(*sl)
+//BoolPush is equivalent to BoolInsert with index len(*sl).
 func BoolPush(sl *[]bool, elem bool) {
 	BoolInsert(sl, elem, len(*sl))
 }
 
-//BoolFrontPush is equivalent to BoolInsert with index 0
+//BoolFrontPush is equivalent to BoolInsert with index 0.
 func BoolFrontPush(sl *[]bool, elem bool) {
 	BoolInsert(sl, elem, 0)
 }
@@ -101,7 +101,7 @@ func BoolFastShuffle(sp []bool) {
 	})
 }
 
-//BoolSecureShuffle will randomly swap the bool elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
+//BoolSecureShuffle will randomly swap the bool elements of a slice using crypto/rand (resource intensive but cryptographically secure).
 func BoolSecureShuffle(sp []bool) error {
 	var i int64
 	size := int64(len(sp)) - 1

@@ -50,12 +50,12 @@ func ByteIndex(sl []byte, elem byte) int {
 	return -1
 }
 
-//BytePush is equivalent to ByteInsert with index len(*sl)
+//BytePush is equivalent to ByteInsert with index len(*sl).
 func BytePush(sl *[]byte, elem byte) {
 	ByteInsert(sl, elem, len(*sl))
 }
 
-//ByteFrontPush is equivalent to ByteInsert with index 0
+//ByteFrontPush is equivalent to ByteInsert with index 0.
 func ByteFrontPush(sl *[]byte, elem byte) {
 	ByteInsert(sl, elem, 0)
 }
@@ -101,7 +101,7 @@ func ByteFastShuffle(sp []byte) {
 	})
 }
 
-//ByteSecureShuffle will randomly swap the byte elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
+//ByteSecureShuffle will randomly swap the byte elements of a slice using crypto/rand (resource intensive but cryptographically secure).
 func ByteSecureShuffle(sp []byte) error {
 	var i int64
 	size := int64(len(sp)) - 1

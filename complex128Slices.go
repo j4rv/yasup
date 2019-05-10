@@ -50,12 +50,12 @@ func Complex128Index(sl []complex128, elem complex128) int {
 	return -1
 }
 
-//Complex128Push is equivalent to Complex128Insert with index len(*sl)
+//Complex128Push is equivalent to Complex128Insert with index len(*sl).
 func Complex128Push(sl *[]complex128, elem complex128) {
 	Complex128Insert(sl, elem, len(*sl))
 }
 
-//Complex128FrontPush is equivalent to Complex128Insert with index 0
+//Complex128FrontPush is equivalent to Complex128Insert with index 0.
 func Complex128FrontPush(sl *[]complex128, elem complex128) {
 	Complex128Insert(sl, elem, 0)
 }
@@ -101,7 +101,7 @@ func Complex128FastShuffle(sp []complex128) {
 	})
 }
 
-//Complex128SecureShuffle will randomly swap the complex128 elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
+//Complex128SecureShuffle will randomly swap the complex128 elements of a slice using crypto/rand (resource intensive but cryptographically secure).
 func Complex128SecureShuffle(sp []complex128) error {
 	var i int64
 	size := int64(len(sp)) - 1

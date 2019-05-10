@@ -50,12 +50,12 @@ func Float64Index(sl []float64, elem float64) int {
 	return -1
 }
 
-//Float64Push is equivalent to Float64Insert with index len(*sl)
+//Float64Push is equivalent to Float64Insert with index len(*sl).
 func Float64Push(sl *[]float64, elem float64) {
 	Float64Insert(sl, elem, len(*sl))
 }
 
-//Float64FrontPush is equivalent to Float64Insert with index 0
+//Float64FrontPush is equivalent to Float64Insert with index 0.
 func Float64FrontPush(sl *[]float64, elem float64) {
 	Float64Insert(sl, elem, 0)
 }
@@ -101,7 +101,7 @@ func Float64FastShuffle(sp []float64) {
 	})
 }
 
-//Float64SecureShuffle will randomly swap the float64 elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
+//Float64SecureShuffle will randomly swap the float64 elements of a slice using crypto/rand (resource intensive but cryptographically secure).
 func Float64SecureShuffle(sp []float64) error {
 	var i int64
 	size := int64(len(sp)) - 1

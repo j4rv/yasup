@@ -50,12 +50,12 @@ func Float32Index(sl []float32, elem float32) int {
 	return -1
 }
 
-//Float32Push is equivalent to Float32Insert with index len(*sl)
+//Float32Push is equivalent to Float32Insert with index len(*sl).
 func Float32Push(sl *[]float32, elem float32) {
 	Float32Insert(sl, elem, len(*sl))
 }
 
-//Float32FrontPush is equivalent to Float32Insert with index 0
+//Float32FrontPush is equivalent to Float32Insert with index 0.
 func Float32FrontPush(sl *[]float32, elem float32) {
 	Float32Insert(sl, elem, 0)
 }
@@ -101,7 +101,7 @@ func Float32FastShuffle(sp []float32) {
 	})
 }
 
-//Float32SecureShuffle will randomly swap the float32 elements of a slice using crypto/rand (resource intensive but cryptographycally secure).
+//Float32SecureShuffle will randomly swap the float32 elements of a slice using crypto/rand (resource intensive but cryptographically secure).
 func Float32SecureShuffle(sp []float32) error {
 	var i int64
 	size := int64(len(sp)) - 1
