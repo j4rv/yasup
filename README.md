@@ -18,15 +18,15 @@ Current helper functions include:
 - An **Equals** function for comparing slices
 - **Shuffle** functions: One that uses math/rand and one that uses crypto/rand
 
-### Example code
+### Examples of usage
 
-Simple to use, see the **/example/main.go**. It is runnable code that shows how to use many of the YASUP functions.
+Simple to use! See the **/examples/main.go**. It is runnable code that shows how to use many of the YASUP functions.
 
 Or you can just run the following command to see what that code does:
 
 ```
 go get github.com/J4RV/yasup
-go run github.com/J4RV/yasup/example
+go run github.com/J4RV/yasup/examples
 ```
 
-To create YASUP functions for non primitive or custom types, see **/example/genericStructExample.go**
+To create YASUP functions for non primitive or custom types, see **/examples/genericStructExample.go**
