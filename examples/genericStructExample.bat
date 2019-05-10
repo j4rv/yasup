@@ -1,4 +1,5 @@
 :: Example that shows how to generate YASUP code for the color.Color struct.
+:: This batch file is expected to be run from the examples folder.
 go install "github.com/j4rv/yasup/yasupGen"
 
 cd ..

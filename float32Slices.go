@@ -8,6 +8,16 @@ import (
 	"math/rand"
 )
 
+//Float32Contains will return true if elem is present in the slice and false otherwise.
+func Float32Contains(sl []float32, elem float32) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
 //Float32Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Float32Insert(sl *[]float32, elem float32, i int) error {
 	if i < 0 || i > len(*sl) {

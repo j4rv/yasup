@@ -8,6 +8,16 @@ import (
 	"math/rand"
 )
 
+//Float64Contains will return true if elem is present in the slice and false otherwise.
+func Float64Contains(sl []float64, elem float64) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
 //Float64Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Float64Insert(sl *[]float64, elem float64, i int) error {
 	if i < 0 || i > len(*sl) {

@@ -8,6 +8,16 @@ import (
 	"math/rand"
 )
 
+//Int16Contains will return true if elem is present in the slice and false otherwise.
+func Int16Contains(sl []int16, elem int16) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
 //Int16Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Int16Insert(sl *[]int16, elem int16, i int) error {
 	if i < 0 || i > len(*sl) {

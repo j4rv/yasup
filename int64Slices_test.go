@@ -15,28 +15,6 @@ func Test_Int64Insert(t *testing.T) {
 	}
 	base := []int64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 	tcs := []testCase{
-		{"beginning", []int64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
-		{"middle", []int64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
-		{"end", []int64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
-		{"empty slice", []int64{}, 0},
-		{"nil slice", nil, 0},
-	}
-	for _, tc := range tcs {
-		yasup.Int64Insert(&tc.slice, -9223372036854775807, tc.insertAt)
-		if tc.slice[tc.insertAt] != -9223372036854775807 {
-			t.Error(tc)
-		}
-	}
-}
-
-func Test_Int64Insert(t *testing.T) {
-	type testCase struct {
-		name     string
-		slice    []int64
-		insertAt int
-	}
-	base := []int64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-	tcs := []testCase{
 		{"First", []int64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
 		{"Middle", []int64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
 		{"Last", []int64{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
@@ -44,7 +22,7 @@ func Test_Int64Insert(t *testing.T) {
 		{"Nil slice", nil, 0},
 	}
 	for _, tc := range tcs {
-		slices.Int64Insert(-9223372036854775807, &tc.slice, tc.insertAt)
+		yasup.Int64Insert(&tc.slice, -9223372036854775807, tc.insertAt)
 		if tc.slice[tc.insertAt] != -9223372036854775807 {
 			t.Error(tc)
 		}

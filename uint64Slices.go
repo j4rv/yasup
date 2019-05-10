@@ -8,6 +8,16 @@ import (
 	"math/rand"
 )
 
+//Uint64Contains will return true if elem is present in the slice and false otherwise.
+func Uint64Contains(sl []uint64, elem uint64) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
 //Uint64Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Uint64Insert(sl *[]uint64, elem uint64, i int) error {
 	if i < 0 || i > len(*sl) {

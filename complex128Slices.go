@@ -8,6 +8,16 @@ import (
 	"math/rand"
 )
 
+//Complex128Contains will return true if elem is present in the slice and false otherwise.
+func Complex128Contains(sl []complex128, elem complex128) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
 //Complex128Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Complex128Insert(sl *[]complex128, elem complex128, i int) error {
 	if i < 0 || i > len(*sl) {

@@ -8,6 +8,16 @@ import (
 	"math/rand"
 )
 
+//Uint8Contains will return true if elem is present in the slice and false otherwise.
+func Uint8Contains(sl []uint8, elem uint8) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
 //Uint8Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Uint8Insert(sl *[]uint8, elem uint8, i int) error {
 	if i < 0 || i > len(*sl) {

@@ -15,28 +15,6 @@ func Test_BoolInsert(t *testing.T) {
 	}
 	base := []bool{true, false, true, false, true, false, true, false, true, false, true, false}
 	tcs := []testCase{
-		{"beginning", []bool{true, false, true, false, true, false, true, false, true, false, true, false}, 0},
-		{"middle", []bool{true, false, true, false, true, false, true, false, true, false, true, false}, len(base) / 2},
-		{"end", []bool{true, false, true, false, true, false, true, false, true, false, true, false}, len(base)},
-		{"empty slice", []bool{}, 0},
-		{"nil slice", nil, 0},
-	}
-	for _, tc := range tcs {
-		yasup.BoolInsert(&tc.slice, false, tc.insertAt)
-		if tc.slice[tc.insertAt] != false {
-			t.Error(tc)
-		}
-	}
-}
-
-func Test_BoolInsert(t *testing.T) {
-	type testCase struct {
-		name     string
-		slice    []bool
-		insertAt int
-	}
-	base := []bool{true, false, true, false, true, false, true, false, true, false, true, false}
-	tcs := []testCase{
 		{"First", []bool{true, false, true, false, true, false, true, false, true, false, true, false}, 0},
 		{"Middle", []bool{true, false, true, false, true, false, true, false, true, false, true, false}, len(base) / 2},
 		{"Last", []bool{true, false, true, false, true, false, true, false, true, false, true, false}, len(base)},
@@ -44,7 +22,7 @@ func Test_BoolInsert(t *testing.T) {
 		{"Nil slice", nil, 0},
 	}
 	for _, tc := range tcs {
-		slices.BoolInsert(false, &tc.slice, tc.insertAt)
+		yasup.BoolInsert(&tc.slice, false, tc.insertAt)
 		if tc.slice[tc.insertAt] != false {
 			t.Error(tc)
 		}

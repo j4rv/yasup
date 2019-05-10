@@ -15,28 +15,6 @@ func Test_Complex128Insert(t *testing.T) {
 	}
 	base := []complex128{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}
 	tcs := []testCase{
-		{"beginning", []complex128{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}, 0},
-		{"middle", []complex128{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}, len(base) / 2},
-		{"end", []complex128{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}, len(base)},
-		{"empty slice", []complex128{}, 0},
-		{"nil slice", nil, 0},
-	}
-	for _, tc := range tcs {
-		yasup.Complex128Insert(&tc.slice, -52.6084+155.80287i, tc.insertAt)
-		if tc.slice[tc.insertAt] != -52.6084+155.80287i {
-			t.Error(tc)
-		}
-	}
-}
-
-func Test_Complex128Insert(t *testing.T) {
-	type testCase struct {
-		name     string
-		slice    []complex128
-		insertAt int
-	}
-	base := []complex128{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}
-	tcs := []testCase{
 		{"First", []complex128{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}, 0},
 		{"Middle", []complex128{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}, len(base) / 2},
 		{"Last", []complex128{0 + 0i, 1 + 2i, -2 + 7.5i, 3 + 42.1i, 4 - 74.6i, -5 + 4i, 6 - 88i, 7 - 0i, 8 + 100i, 9 + 99i}, len(base)},
@@ -44,7 +22,7 @@ func Test_Complex128Insert(t *testing.T) {
 		{"Nil slice", nil, 0},
 	}
 	for _, tc := range tcs {
-		slices.Complex128Insert(-52.6084+155.80287i, &tc.slice, tc.insertAt)
+		yasup.Complex128Insert(&tc.slice, -52.6084+155.80287i, tc.insertAt)
 		if tc.slice[tc.insertAt] != -52.6084+155.80287i {
 			t.Error(tc)
 		}

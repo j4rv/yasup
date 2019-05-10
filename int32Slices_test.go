@@ -15,28 +15,6 @@ func Test_Int32Insert(t *testing.T) {
 	}
 	base := []int32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 	tcs := []testCase{
-		{"beginning", []int32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
-		{"middle", []int32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
-		{"end", []int32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
-		{"empty slice", []int32{}, 0},
-		{"nil slice", nil, 0},
-	}
-	for _, tc := range tcs {
-		yasup.Int32Insert(&tc.slice, -2147483648, tc.insertAt)
-		if tc.slice[tc.insertAt] != -2147483648 {
-			t.Error(tc)
-		}
-	}
-}
-
-func Test_Int32Insert(t *testing.T) {
-	type testCase struct {
-		name     string
-		slice    []int32
-		insertAt int
-	}
-	base := []int32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-	tcs := []testCase{
 		{"First", []int32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
 		{"Middle", []int32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
 		{"Last", []int32{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
@@ -44,7 +22,7 @@ func Test_Int32Insert(t *testing.T) {
 		{"Nil slice", nil, 0},
 	}
 	for _, tc := range tcs {
-		slices.Int32Insert(-2147483648, &tc.slice, tc.insertAt)
+		yasup.Int32Insert(&tc.slice, -2147483648, tc.insertAt)
 		if tc.slice[tc.insertAt] != -2147483648 {
 			t.Error(tc)
 		}

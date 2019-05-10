@@ -8,6 +8,16 @@ import (
 	"math/rand"
 )
 
+//UintContains will return true if elem is present in the slice and false otherwise.
+func UintContains(sl []uint, elem uint) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
 //UintInsert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func UintInsert(sl *[]uint, elem uint, i int) error {
 	if i < 0 || i > len(*sl) {

@@ -29,28 +29,6 @@ func Test_{{.TypeCased}}Insert(t *testing.T) {
 	}
 	base := []{{.Type}}{ {{.MultipleVals}} }
 	tcs := []testCase{
-		testCase{"beginning", []{{.Type}}{ {{.MultipleVals}} }, 0},
-		testCase{"middle", []{{.Type}}{ {{.MultipleVals}} }, len(base) / 2},
-		testCase{"end", []{{.Type}}{ {{.MultipleVals}} }, len(base)},
-		testCase{"empty slice", []{{.Type}}{}, 0},
-		testCase{"nil slice", nil, 0},
-	}
-	for _, tc := range tcs {
-		yasup.{{.TypeCased}}Insert(&tc.slice, {{.SingleVal}}, tc.insertAt)
-		if (tc.slice[tc.insertAt] != {{.SingleVal}}) {
-			t.Error(tc)
-		}
-	}
-}
-
-func Test_{{.TypeCased}}Insert(t *testing.T) {
-	type testCase struct {
-		name     string
-		slice    []{{.Type}}
-		insertAt int
-	}
-	base := []{{.Type}}{ {{.MultipleVals}} }
-	tcs := []testCase{
 		testCase{"First", []{{.Type}}{ {{.MultipleVals}} }, 0},
 		testCase{"Middle", []{{.Type}}{ {{.MultipleVals}} }, len(base) / 2},
 		testCase{"Last", []{{.Type}}{ {{.MultipleVals}} }, len(base)},
@@ -58,7 +36,7 @@ func Test_{{.TypeCased}}Insert(t *testing.T) {
 		testCase{"Nil slice", nil, 0},
 	}
 	for _, tc := range tcs {
-		slices.{{.TypeCased}}Insert({{.SingleVal}}, &tc.slice, tc.insertAt)
+		yasup.{{.TypeCased}}Insert(&tc.slice, {{.SingleVal}}, tc.insertAt)
 		if tc.slice[tc.insertAt] != {{.SingleVal}} {
 			t.Error(tc)
 		}

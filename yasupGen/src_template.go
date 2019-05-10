@@ -26,6 +26,16 @@ import (
 	{{ if .TypePackage }}"{{ .TypePackage }}"{{ end }}
 )
 
+//{{.TypeCased}}Contains will return true if elem is present in the slice and false otherwise.
+func {{.TypeCased}}Contains(sl []{{.Type}}, elem {{.Type}}) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
 //{{.TypeCased}}Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func {{.TypeCased}}Insert(sl *[]{{.Type}}, elem {{.Type}}, i int) error {
 	if i < 0 || i > len(*sl) {

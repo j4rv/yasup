@@ -15,28 +15,6 @@ func Test_ByteInsert(t *testing.T) {
 	}
 	base := []byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 	tcs := []testCase{
-		{"beginning", []byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
-		{"middle", []byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
-		{"end", []byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
-		{"empty slice", []byte{}, 0},
-		{"nil slice", nil, 0},
-	}
-	for _, tc := range tcs {
-		yasup.ByteInsert(&tc.slice, 255, tc.insertAt)
-		if tc.slice[tc.insertAt] != 255 {
-			t.Error(tc)
-		}
-	}
-}
-
-func Test_ByteInsert(t *testing.T) {
-	type testCase struct {
-		name     string
-		slice    []byte
-		insertAt int
-	}
-	base := []byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-	tcs := []testCase{
 		{"First", []byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
 		{"Middle", []byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
 		{"Last", []byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
@@ -44,7 +22,7 @@ func Test_ByteInsert(t *testing.T) {
 		{"Nil slice", nil, 0},
 	}
 	for _, tc := range tcs {
-		slices.ByteInsert(255, &tc.slice, tc.insertAt)
+		yasup.ByteInsert(&tc.slice, 255, tc.insertAt)
 		if tc.slice[tc.insertAt] != 255 {
 			t.Error(tc)
 		}

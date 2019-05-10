@@ -8,6 +8,16 @@ import (
 	"math/rand"
 )
 
+//Complex64Contains will return true if elem is present in the slice and false otherwise.
+func Complex64Contains(sl []complex64, elem complex64) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
 //Complex64Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Complex64Insert(sl *[]complex64, elem complex64, i int) error {
 	if i < 0 || i > len(*sl) {

@@ -15,28 +15,6 @@ func Test_RuneInsert(t *testing.T) {
 	}
 	base := []rune{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 	tcs := []testCase{
-		{"beginning", []rune{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
-		{"middle", []rune{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
-		{"end", []rune{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
-		{"empty slice", []rune{}, 0},
-		{"nil slice", nil, 0},
-	}
-	for _, tc := range tcs {
-		yasup.RuneInsert(&tc.slice, 2147483647, tc.insertAt)
-		if tc.slice[tc.insertAt] != 2147483647 {
-			t.Error(tc)
-		}
-	}
-}
-
-func Test_RuneInsert(t *testing.T) {
-	type testCase struct {
-		name     string
-		slice    []rune
-		insertAt int
-	}
-	base := []rune{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-	tcs := []testCase{
 		{"First", []rune{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
 		{"Middle", []rune{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
 		{"Last", []rune{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
@@ -44,7 +22,7 @@ func Test_RuneInsert(t *testing.T) {
 		{"Nil slice", nil, 0},
 	}
 	for _, tc := range tcs {
-		slices.RuneInsert(2147483647, &tc.slice, tc.insertAt)
+		yasup.RuneInsert(&tc.slice, 2147483647, tc.insertAt)
 		if tc.slice[tc.insertAt] != 2147483647 {
 			t.Error(tc)
 		}

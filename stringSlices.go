@@ -8,6 +8,16 @@ import (
 	"math/rand"
 )
 
+//StringContains will return true if elem is present in the slice and false otherwise.
+func StringContains(sl []string, elem string) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
 //StringInsert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func StringInsert(sl *[]string, elem string, i int) error {
 	if i < 0 || i > len(*sl) {

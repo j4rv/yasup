@@ -15,28 +15,6 @@ func Test_StringInsert(t *testing.T) {
 	}
 	base := []string{"0", "1", "2", "3", "4", "5", "6", "7", "lorem", "ipsum"}
 	tcs := []testCase{
-		{"beginning", []string{"0", "1", "2", "3", "4", "5", "6", "7", "lorem", "ipsum"}, 0},
-		{"middle", []string{"0", "1", "2", "3", "4", "5", "6", "7", "lorem", "ipsum"}, len(base) / 2},
-		{"end", []string{"0", "1", "2", "3", "4", "5", "6", "7", "lorem", "ipsum"}, len(base)},
-		{"empty slice", []string{}, 0},
-		{"nil slice", nil, 0},
-	}
-	for _, tc := range tcs {
-		yasup.StringInsert(&tc.slice, "foobar", tc.insertAt)
-		if tc.slice[tc.insertAt] != "foobar" {
-			t.Error(tc)
-		}
-	}
-}
-
-func Test_StringInsert(t *testing.T) {
-	type testCase struct {
-		name     string
-		slice    []string
-		insertAt int
-	}
-	base := []string{"0", "1", "2", "3", "4", "5", "6", "7", "lorem", "ipsum"}
-	tcs := []testCase{
 		{"First", []string{"0", "1", "2", "3", "4", "5", "6", "7", "lorem", "ipsum"}, 0},
 		{"Middle", []string{"0", "1", "2", "3", "4", "5", "6", "7", "lorem", "ipsum"}, len(base) / 2},
 		{"Last", []string{"0", "1", "2", "3", "4", "5", "6", "7", "lorem", "ipsum"}, len(base)},
@@ -44,7 +22,7 @@ func Test_StringInsert(t *testing.T) {
 		{"Nil slice", nil, 0},
 	}
 	for _, tc := range tcs {
-		slices.StringInsert("foobar", &tc.slice, tc.insertAt)
+		yasup.StringInsert(&tc.slice, "foobar", tc.insertAt)
 		if tc.slice[tc.insertAt] != "foobar" {
 			t.Error(tc)
 		}

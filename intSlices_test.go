@@ -15,28 +15,6 @@ func Test_IntInsert(t *testing.T) {
 	}
 	base := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 	tcs := []testCase{
-		{"beginning", []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
-		{"middle", []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
-		{"end", []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
-		{"empty slice", []int{}, 0},
-		{"nil slice", nil, 0},
-	}
-	for _, tc := range tcs {
-		yasup.IntInsert(&tc.slice, -2147483648, tc.insertAt)
-		if tc.slice[tc.insertAt] != -2147483648 {
-			t.Error(tc)
-		}
-	}
-}
-
-func Test_IntInsert(t *testing.T) {
-	type testCase struct {
-		name     string
-		slice    []int
-		insertAt int
-	}
-	base := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-	tcs := []testCase{
 		{"First", []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 0},
 		{"Middle", []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base) / 2},
 		{"Last", []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, len(base)},
@@ -44,7 +22,7 @@ func Test_IntInsert(t *testing.T) {
 		{"Nil slice", nil, 0},
 	}
 	for _, tc := range tcs {
-		slices.IntInsert(-2147483648, &tc.slice, tc.insertAt)
+		yasup.IntInsert(&tc.slice, -2147483648, tc.insertAt)
 		if tc.slice[tc.insertAt] != -2147483648 {
 			t.Error(tc)
 		}

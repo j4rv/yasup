@@ -8,6 +8,16 @@ import (
 	"math/rand"
 )
 
+//Uint32Contains will return true if elem is present in the slice and false otherwise.
+func Uint32Contains(sl []uint32, elem uint32) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
 //Uint32Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Uint32Insert(sl *[]uint32, elem uint32, i int) error {
 	if i < 0 || i > len(*sl) {
