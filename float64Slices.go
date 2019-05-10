@@ -10,16 +10,6 @@ import (
 
 var zeroValueFloat64 float64
 
-//Float64Contains will return true if elem is present in the slice and false otherwise.
-func Float64Contains(sl []float64, elem float64) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //Float64Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Float64Insert(sl *[]float64, elem float64, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -38,6 +28,26 @@ func Float64Delete(sl *[]float64, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//Float64Contains will return true if elem is present in the slice and false otherwise.
+func Float64Contains(sl []float64, elem float64) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//Float64Index returns the index of the first instance of elem, or -1 if elem is not present.
+func Float64Index(sl []float64, elem float64) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //Float64Push is equivalent to Float64Insert with index len(*sl)

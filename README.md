@@ -8,9 +8,10 @@ An auto-generated library that contains helper functions for primitive type slic
 
 Current helper functions include:
 
-- **Contains** an element
 - **Insert** an element at a given index
 - **Delete** an element at a given index
+- **Contains** an element
+- **Index** of an element in the slice, or -1 if not found
 - **Push** an element to the end of the slice
 - **Pop** an element from the end of the slice
 - **FrontPush**: pushes an element to the start of the slice

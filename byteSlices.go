@@ -10,16 +10,6 @@ import (
 
 var zeroValueByte byte
 
-//ByteContains will return true if elem is present in the slice and false otherwise.
-func ByteContains(sl []byte, elem byte) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //ByteInsert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func ByteInsert(sl *[]byte, elem byte, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -38,6 +28,26 @@ func ByteDelete(sl *[]byte, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//ByteContains will return true if elem is present in the slice and false otherwise.
+func ByteContains(sl []byte, elem byte) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//ByteIndex returns the index of the first instance of elem, or -1 if elem is not present.
+func ByteIndex(sl []byte, elem byte) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //BytePush is equivalent to ByteInsert with index len(*sl)

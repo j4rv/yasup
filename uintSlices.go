@@ -10,16 +10,6 @@ import (
 
 var zeroValueUint uint
 
-//UintContains will return true if elem is present in the slice and false otherwise.
-func UintContains(sl []uint, elem uint) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //UintInsert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func UintInsert(sl *[]uint, elem uint, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -38,6 +28,26 @@ func UintDelete(sl *[]uint, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//UintContains will return true if elem is present in the slice and false otherwise.
+func UintContains(sl []uint, elem uint) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//UintIndex returns the index of the first instance of elem, or -1 if elem is not present.
+func UintIndex(sl []uint, elem uint) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //UintPush is equivalent to UintInsert with index len(*sl)

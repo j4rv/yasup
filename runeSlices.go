@@ -10,16 +10,6 @@ import (
 
 var zeroValueRune rune
 
-//RuneContains will return true if elem is present in the slice and false otherwise.
-func RuneContains(sl []rune, elem rune) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //RuneInsert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func RuneInsert(sl *[]rune, elem rune, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -38,6 +28,26 @@ func RuneDelete(sl *[]rune, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//RuneContains will return true if elem is present in the slice and false otherwise.
+func RuneContains(sl []rune, elem rune) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//RuneIndex returns the index of the first instance of elem, or -1 if elem is not present.
+func RuneIndex(sl []rune, elem rune) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //RunePush is equivalent to RuneInsert with index len(*sl)

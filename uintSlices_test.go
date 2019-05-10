@@ -23,7 +23,7 @@ func Test_UintInsert(t *testing.T) {
 	}
 	for _, tc := range tcs {
 		yasup.UintInsert(&tc.slice, 4294967295, tc.insertAt)
-		if tc.slice[tc.insertAt] != 4294967295 {
+		if tc.slice[tc.insertAt] != (4294967295) {
 			t.Error(tc)
 		}
 	}

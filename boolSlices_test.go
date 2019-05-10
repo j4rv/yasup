@@ -23,7 +23,7 @@ func Test_BoolInsert(t *testing.T) {
 	}
 	for _, tc := range tcs {
 		yasup.BoolInsert(&tc.slice, false, tc.insertAt)
-		if tc.slice[tc.insertAt] != false {
+		if tc.slice[tc.insertAt] != (false) {
 			t.Error(tc)
 		}
 	}

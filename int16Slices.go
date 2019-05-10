@@ -10,16 +10,6 @@ import (
 
 var zeroValueInt16 int16
 
-//Int16Contains will return true if elem is present in the slice and false otherwise.
-func Int16Contains(sl []int16, elem int16) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //Int16Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Int16Insert(sl *[]int16, elem int16, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -38,6 +28,26 @@ func Int16Delete(sl *[]int16, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//Int16Contains will return true if elem is present in the slice and false otherwise.
+func Int16Contains(sl []int16, elem int16) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//Int16Index returns the index of the first instance of elem, or -1 if elem is not present.
+func Int16Index(sl []int16, elem int16) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //Int16Push is equivalent to Int16Insert with index len(*sl)

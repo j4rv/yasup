@@ -5,7 +5,6 @@ import "text/template"
 /*
   TODO new:
   Count(slice, val) int
-  Index(slice, val) int
   LastIndex(slice, val) int
   Replace(slice, old, new, n) replacements int
   ReplaceAll(slice, old, new) replacements int
@@ -25,16 +24,6 @@ import (
 
 var zeroValue{{.TypeCased}} {{.Type}}
 
-//{{.TypeCased}}Contains will return true if elem is present in the slice and false otherwise.
-func {{.TypeCased}}Contains(sl []{{.Type}}, elem {{.Type}}) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //{{.TypeCased}}Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func {{.TypeCased}}Insert(sl *[]{{.Type}}, elem {{.Type}}, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -53,6 +42,26 @@ func {{.TypeCased}}Delete(sl *[]{{.Type}}, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//{{.TypeCased}}Contains will return true if elem is present in the slice and false otherwise.
+func {{.TypeCased}}Contains(sl []{{.Type}}, elem {{.Type}}) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//{{.TypeCased}}Index returns the index of the first instance of elem, or -1 if elem is not present.
+func {{.TypeCased}}Index(sl []{{.Type}}, elem {{.Type}}) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //{{.TypeCased}}Push is equivalent to {{.TypeCased}}Insert with index len(*sl)

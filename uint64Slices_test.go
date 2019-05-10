@@ -23,7 +23,7 @@ func Test_Uint64Insert(t *testing.T) {
 	}
 	for _, tc := range tcs {
 		yasup.Uint64Insert(&tc.slice, 18446744073709551615, tc.insertAt)
-		if tc.slice[tc.insertAt] != 18446744073709551615 {
+		if tc.slice[tc.insertAt] != (18446744073709551615) {
 			t.Error(tc)
 		}
 	}

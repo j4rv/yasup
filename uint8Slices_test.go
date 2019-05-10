@@ -23,7 +23,7 @@ func Test_Uint8Insert(t *testing.T) {
 	}
 	for _, tc := range tcs {
 		yasup.Uint8Insert(&tc.slice, 255, tc.insertAt)
-		if tc.slice[tc.insertAt] != 255 {
+		if tc.slice[tc.insertAt] != (255) {
 			t.Error(tc)
 		}
 	}

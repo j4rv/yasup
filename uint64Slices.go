@@ -10,16 +10,6 @@ import (
 
 var zeroValueUint64 uint64
 
-//Uint64Contains will return true if elem is present in the slice and false otherwise.
-func Uint64Contains(sl []uint64, elem uint64) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //Uint64Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Uint64Insert(sl *[]uint64, elem uint64, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -38,6 +28,26 @@ func Uint64Delete(sl *[]uint64, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//Uint64Contains will return true if elem is present in the slice and false otherwise.
+func Uint64Contains(sl []uint64, elem uint64) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//Uint64Index returns the index of the first instance of elem, or -1 if elem is not present.
+func Uint64Index(sl []uint64, elem uint64) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //Uint64Push is equivalent to Uint64Insert with index len(*sl)

@@ -10,16 +10,6 @@ import (
 
 var zeroValueUint16 uint16
 
-//Uint16Contains will return true if elem is present in the slice and false otherwise.
-func Uint16Contains(sl []uint16, elem uint16) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //Uint16Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Uint16Insert(sl *[]uint16, elem uint16, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -38,6 +28,26 @@ func Uint16Delete(sl *[]uint16, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//Uint16Contains will return true if elem is present in the slice and false otherwise.
+func Uint16Contains(sl []uint16, elem uint16) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//Uint16Index returns the index of the first instance of elem, or -1 if elem is not present.
+func Uint16Index(sl []uint16, elem uint16) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //Uint16Push is equivalent to Uint16Insert with index len(*sl)

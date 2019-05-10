@@ -10,16 +10,6 @@ import (
 
 var zeroValueString string
 
-//StringContains will return true if elem is present in the slice and false otherwise.
-func StringContains(sl []string, elem string) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //StringInsert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func StringInsert(sl *[]string, elem string, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -38,6 +28,26 @@ func StringDelete(sl *[]string, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//StringContains will return true if elem is present in the slice and false otherwise.
+func StringContains(sl []string, elem string) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//StringIndex returns the index of the first instance of elem, or -1 if elem is not present.
+func StringIndex(sl []string, elem string) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //StringPush is equivalent to StringInsert with index len(*sl)

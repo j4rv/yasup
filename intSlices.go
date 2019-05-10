@@ -10,16 +10,6 @@ import (
 
 var zeroValueInt int
 
-//IntContains will return true if elem is present in the slice and false otherwise.
-func IntContains(sl []int, elem int) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //IntInsert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func IntInsert(sl *[]int, elem int, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -38,6 +28,26 @@ func IntDelete(sl *[]int, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//IntContains will return true if elem is present in the slice and false otherwise.
+func IntContains(sl []int, elem int) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//IntIndex returns the index of the first instance of elem, or -1 if elem is not present.
+func IntIndex(sl []int, elem int) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //IntPush is equivalent to IntInsert with index len(*sl)

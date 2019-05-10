@@ -10,16 +10,6 @@ import (
 
 var zeroValueComplex64 complex64
 
-//Complex64Contains will return true if elem is present in the slice and false otherwise.
-func Complex64Contains(sl []complex64, elem complex64) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //Complex64Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Complex64Insert(sl *[]complex64, elem complex64, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -38,6 +28,26 @@ func Complex64Delete(sl *[]complex64, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//Complex64Contains will return true if elem is present in the slice and false otherwise.
+func Complex64Contains(sl []complex64, elem complex64) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//Complex64Index returns the index of the first instance of elem, or -1 if elem is not present.
+func Complex64Index(sl []complex64, elem complex64) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //Complex64Push is equivalent to Complex64Insert with index len(*sl)

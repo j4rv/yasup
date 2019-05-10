@@ -23,7 +23,7 @@ func Test_Uint16Insert(t *testing.T) {
 	}
 	for _, tc := range tcs {
 		yasup.Uint16Insert(&tc.slice, 65535, tc.insertAt)
-		if tc.slice[tc.insertAt] != 65535 {
+		if tc.slice[tc.insertAt] != (65535) {
 			t.Error(tc)
 		}
 	}

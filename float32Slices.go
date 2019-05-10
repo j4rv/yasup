@@ -10,16 +10,6 @@ import (
 
 var zeroValueFloat32 float32
 
-//Float32Contains will return true if elem is present in the slice and false otherwise.
-func Float32Contains(sl []float32, elem float32) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //Float32Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Float32Insert(sl *[]float32, elem float32, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -38,6 +28,26 @@ func Float32Delete(sl *[]float32, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//Float32Contains will return true if elem is present in the slice and false otherwise.
+func Float32Contains(sl []float32, elem float32) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//Float32Index returns the index of the first instance of elem, or -1 if elem is not present.
+func Float32Index(sl []float32, elem float32) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //Float32Push is equivalent to Float32Insert with index len(*sl)

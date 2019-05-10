@@ -23,7 +23,7 @@ func Test_StringInsert(t *testing.T) {
 	}
 	for _, tc := range tcs {
 		yasup.StringInsert(&tc.slice, "foobar", tc.insertAt)
-		if tc.slice[tc.insertAt] != "foobar" {
+		if tc.slice[tc.insertAt] != ("foobar") {
 			t.Error(tc)
 		}
 	}

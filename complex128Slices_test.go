@@ -23,7 +23,7 @@ func Test_Complex128Insert(t *testing.T) {
 	}
 	for _, tc := range tcs {
 		yasup.Complex128Insert(&tc.slice, -52.6084+155.80287i, tc.insertAt)
-		if tc.slice[tc.insertAt] != -52.6084+155.80287i {
+		if tc.slice[tc.insertAt] != (-52.6084 + 155.80287i) {
 			t.Error(tc)
 		}
 	}

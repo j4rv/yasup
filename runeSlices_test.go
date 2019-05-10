@@ -23,7 +23,7 @@ func Test_RuneInsert(t *testing.T) {
 	}
 	for _, tc := range tcs {
 		yasup.RuneInsert(&tc.slice, 2147483647, tc.insertAt)
-		if tc.slice[tc.insertAt] != 2147483647 {
+		if tc.slice[tc.insertAt] != (2147483647) {
 			t.Error(tc)
 		}
 	}

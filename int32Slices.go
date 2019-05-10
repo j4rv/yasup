@@ -10,16 +10,6 @@ import (
 
 var zeroValueInt32 int32
 
-//Int32Contains will return true if elem is present in the slice and false otherwise.
-func Int32Contains(sl []int32, elem int32) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //Int32Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Int32Insert(sl *[]int32, elem int32, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -38,6 +28,26 @@ func Int32Delete(sl *[]int32, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//Int32Contains will return true if elem is present in the slice and false otherwise.
+func Int32Contains(sl []int32, elem int32) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//Int32Index returns the index of the first instance of elem, or -1 if elem is not present.
+func Int32Index(sl []int32, elem int32) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //Int32Push is equivalent to Int32Insert with index len(*sl)

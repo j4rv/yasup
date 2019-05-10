@@ -23,7 +23,7 @@ func Test_ByteInsert(t *testing.T) {
 	}
 	for _, tc := range tcs {
 		yasup.ByteInsert(&tc.slice, 255, tc.insertAt)
-		if tc.slice[tc.insertAt] != 255 {
+		if tc.slice[tc.insertAt] != (255) {
 			t.Error(tc)
 		}
 	}

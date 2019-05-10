@@ -23,7 +23,7 @@ func Test_Float64Insert(t *testing.T) {
 	}
 	for _, tc := range tcs {
 		yasup.Float64Insert(&tc.slice, -9223372036854775807, tc.insertAt)
-		if tc.slice[tc.insertAt] != -9223372036854775807 {
+		if tc.slice[tc.insertAt] != (-9223372036854775807) {
 			t.Error(tc)
 		}
 	}

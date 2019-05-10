@@ -23,7 +23,7 @@ func Test_Int32Insert(t *testing.T) {
 	}
 	for _, tc := range tcs {
 		yasup.Int32Insert(&tc.slice, -2147483648, tc.insertAt)
-		if tc.slice[tc.insertAt] != -2147483648 {
+		if tc.slice[tc.insertAt] != (-2147483648) {
 			t.Error(tc)
 		}
 	}

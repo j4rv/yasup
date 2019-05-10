@@ -11,6 +11,7 @@ import "text/template"
    * FrontPush
    * FrontPop
    * Contains
+   * Index
 */
 
 var testTemplate = template.Must(template.New("").Parse(`

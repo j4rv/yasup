@@ -10,16 +10,6 @@ import (
 
 var zeroValueComplex128 complex128
 
-//Complex128Contains will return true if elem is present in the slice and false otherwise.
-func Complex128Contains(sl []complex128, elem complex128) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //Complex128Insert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func Complex128Insert(sl *[]complex128, elem complex128, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -38,6 +28,26 @@ func Complex128Delete(sl *[]complex128, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//Complex128Contains will return true if elem is present in the slice and false otherwise.
+func Complex128Contains(sl []complex128, elem complex128) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//Complex128Index returns the index of the first instance of elem, or -1 if elem is not present.
+func Complex128Index(sl []complex128, elem complex128) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //Complex128Push is equivalent to Complex128Insert with index len(*sl)

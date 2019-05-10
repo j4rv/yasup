@@ -10,16 +10,6 @@ import (
 
 var zeroValueBool bool
 
-//BoolContains will return true if elem is present in the slice and false otherwise.
-func BoolContains(sl []bool, elem bool) bool {
-	for i := range sl {
-		if sl[i] == elem {
-			return true
-		}
-	}
-	return false
-}
-
 //BoolInsert will append elem at the position i. Might return ErrIndexOutOfBounds.
 func BoolInsert(sl *[]bool, elem bool, i int) error {
 	if i < 0 || i > len(*sl) {
@@ -38,6 +28,26 @@ func BoolDelete(sl *[]bool, i int) error {
 	}
 	*sl = append((*sl)[:i], (*sl)[i+1:]...)
 	return nil
+}
+
+//BoolContains will return true if elem is present in the slice and false otherwise.
+func BoolContains(sl []bool, elem bool) bool {
+	for i := range sl {
+		if sl[i] == elem {
+			return true
+		}
+	}
+	return false
+}
+
+//BoolIndex returns the index of the first instance of elem, or -1 if elem is not present.
+func BoolIndex(sl []bool, elem bool) int {
+	for i := range sl {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
 }
 
 //BoolPush is equivalent to BoolInsert with index len(*sl)
