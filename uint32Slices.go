@@ -50,6 +50,27 @@ func Uint32Index(sl []uint32, elem uint32) int {
 	return -1
 }
 
+//Uint32LastIndex returns the index of the last instance of elem in the slice, or -1 if elem is not present.
+func Uint32LastIndex(sl []uint32, elem uint32) int {
+	for i := len(sl) - 1; i >= 0; i-- {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
+}
+
+//Uint32Count will return an int representing the amount of times that elem is present in the slice.
+func Uint32Count(sl []uint32, elem uint32) int {
+	var n int
+	for i := range sl {
+		if sl[i] == elem {
+			n++
+		}
+	}
+	return n
+}
+
 //Uint32Push is equivalent to Uint32Insert with index len(*sl).
 func Uint32Push(sl *[]uint32, elem uint32) {
 	Uint32Insert(sl, elem, len(*sl))
@@ -79,6 +100,26 @@ func Uint32FrontPop(sl *[]uint32) (uint32, error) {
 	ret := (*sl)[0]
 	Uint32Delete(sl, 0)
 	return ret, nil
+}
+
+//Uint32Replace modifies the slice with the first n non-overlapping instances of old replaced by new. If n equals -1, there is no limit on the number of replacements.
+func Uint32Replace(sl []uint32, old, new uint32, n int) (replacements int) {
+	left := n
+	for i := range sl {
+		if left == 0 {
+			break // no replacements left
+		}
+		if sl[i] == old {
+			sl[i] = new
+			left--
+		}
+	}
+	return n - left
+}
+
+//Uint32ReplaceAll is equivalent to Uint32Replace with n = -1.
+func Uint32ReplaceAll(sl []uint32, old, new uint32) (replacements int) {
+	return Uint32Replace(sl, old, new, -1)
 }
 
 //Uint32Equals compares two uint32 slices. Returns true if their elements are equal.

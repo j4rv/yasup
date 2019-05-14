@@ -50,6 +50,27 @@ func BoolIndex(sl []bool, elem bool) int {
 	return -1
 }
 
+//BoolLastIndex returns the index of the last instance of elem in the slice, or -1 if elem is not present.
+func BoolLastIndex(sl []bool, elem bool) int {
+	for i := len(sl) - 1; i >= 0; i-- {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
+}
+
+//BoolCount will return an int representing the amount of times that elem is present in the slice.
+func BoolCount(sl []bool, elem bool) int {
+	var n int
+	for i := range sl {
+		if sl[i] == elem {
+			n++
+		}
+	}
+	return n
+}
+
 //BoolPush is equivalent to BoolInsert with index len(*sl).
 func BoolPush(sl *[]bool, elem bool) {
 	BoolInsert(sl, elem, len(*sl))
@@ -79,6 +100,26 @@ func BoolFrontPop(sl *[]bool) (bool, error) {
 	ret := (*sl)[0]
 	BoolDelete(sl, 0)
 	return ret, nil
+}
+
+//BoolReplace modifies the slice with the first n non-overlapping instances of old replaced by new. If n equals -1, there is no limit on the number of replacements.
+func BoolReplace(sl []bool, old, new bool, n int) (replacements int) {
+	left := n
+	for i := range sl {
+		if left == 0 {
+			break // no replacements left
+		}
+		if sl[i] == old {
+			sl[i] = new
+			left--
+		}
+	}
+	return n - left
+}
+
+//BoolReplaceAll is equivalent to BoolReplace with n = -1.
+func BoolReplaceAll(sl []bool, old, new bool) (replacements int) {
+	return BoolReplace(sl, old, new, -1)
 }
 
 //BoolEquals compares two bool slices. Returns true if their elements are equal.

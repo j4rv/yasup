@@ -50,6 +50,27 @@ func UintIndex(sl []uint, elem uint) int {
 	return -1
 }
 
+//UintLastIndex returns the index of the last instance of elem in the slice, or -1 if elem is not present.
+func UintLastIndex(sl []uint, elem uint) int {
+	for i := len(sl) - 1; i >= 0; i-- {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
+}
+
+//UintCount will return an int representing the amount of times that elem is present in the slice.
+func UintCount(sl []uint, elem uint) int {
+	var n int
+	for i := range sl {
+		if sl[i] == elem {
+			n++
+		}
+	}
+	return n
+}
+
 //UintPush is equivalent to UintInsert with index len(*sl).
 func UintPush(sl *[]uint, elem uint) {
 	UintInsert(sl, elem, len(*sl))
@@ -79,6 +100,26 @@ func UintFrontPop(sl *[]uint) (uint, error) {
 	ret := (*sl)[0]
 	UintDelete(sl, 0)
 	return ret, nil
+}
+
+//UintReplace modifies the slice with the first n non-overlapping instances of old replaced by new. If n equals -1, there is no limit on the number of replacements.
+func UintReplace(sl []uint, old, new uint, n int) (replacements int) {
+	left := n
+	for i := range sl {
+		if left == 0 {
+			break // no replacements left
+		}
+		if sl[i] == old {
+			sl[i] = new
+			left--
+		}
+	}
+	return n - left
+}
+
+//UintReplaceAll is equivalent to UintReplace with n = -1.
+func UintReplaceAll(sl []uint, old, new uint) (replacements int) {
+	return UintReplace(sl, old, new, -1)
 }
 
 //UintEquals compares two uint slices. Returns true if their elements are equal.

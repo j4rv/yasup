@@ -4,10 +4,7 @@ import "text/template"
 
 /*
   TODO new:
-  Count(slice, val) int
-  LastIndex(slice, val) int
-  Replace(slice, old, new, n) replacements int
-  ReplaceAll(slice, old, new) replacements int
+  Fill(slice, value)
 */
 
 var srcTemplate = template.Must(template.New("").Parse(`
@@ -64,6 +61,27 @@ func {{.TypeCased}}Index(sl []{{.Type}}, elem {{.Type}}) int {
 	return -1
 }
 
+//{{.TypeCased}}LastIndex returns the index of the last instance of elem in the slice, or -1 if elem is not present.
+func {{.TypeCased}}LastIndex(sl []{{.Type}}, elem {{.Type}}) int {
+	for i := len(sl) - 1; i >= 0; i-- {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
+}
+
+//{{.TypeCased}}Count will return an int representing the amount of times that elem is present in the slice.
+func {{.TypeCased}}Count(sl []{{.Type}}, elem {{.Type}}) int {
+	var n int
+	for i := range sl {
+		if sl[i] == elem {
+			n++
+		}
+	}
+	return n
+}
+
 //{{.TypeCased}}Push is equivalent to {{.TypeCased}}Insert with index len(*sl).
 func {{.TypeCased}}Push(sl *[]{{.Type}}, elem {{.Type}}) {
 	{{.TypeCased}}Insert(sl, elem, len(*sl))
@@ -93,6 +111,26 @@ func {{.TypeCased}}FrontPop(sl *[]{{.Type}}) ({{.Type}}, error) {
 	ret := (*sl)[0]
 	{{.TypeCased}}Delete(sl, 0)
 	return ret, nil
+}
+
+//{{.TypeCased}}Replace modifies the slice with the first n non-overlapping instances of old replaced by new. If n equals -1, there is no limit on the number of replacements.
+func {{.TypeCased}}Replace(sl []{{.Type}}, old, new {{.Type}}, n int) (replacements int) {
+	left := n
+	for i := range sl {
+		if left == 0 {
+			break // no replacements left
+		}
+		if sl[i] == old {
+			sl[i] = new
+			left--
+		}
+	}
+	return n - left
+}
+
+//{{.TypeCased}}ReplaceAll is equivalent to {{.TypeCased}}Replace with n = -1.
+func {{.TypeCased}}ReplaceAll(sl []{{.Type}}, old, new {{.Type}}) (replacements int) {
+	return {{.TypeCased}}Replace(sl, old, new, -1)
 }
 
 //{{.TypeCased}}Equals compares two {{.Type}} slices. Returns true if their elements are equal.

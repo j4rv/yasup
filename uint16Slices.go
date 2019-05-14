@@ -50,6 +50,27 @@ func Uint16Index(sl []uint16, elem uint16) int {
 	return -1
 }
 
+//Uint16LastIndex returns the index of the last instance of elem in the slice, or -1 if elem is not present.
+func Uint16LastIndex(sl []uint16, elem uint16) int {
+	for i := len(sl) - 1; i >= 0; i-- {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
+}
+
+//Uint16Count will return an int representing the amount of times that elem is present in the slice.
+func Uint16Count(sl []uint16, elem uint16) int {
+	var n int
+	for i := range sl {
+		if sl[i] == elem {
+			n++
+		}
+	}
+	return n
+}
+
 //Uint16Push is equivalent to Uint16Insert with index len(*sl).
 func Uint16Push(sl *[]uint16, elem uint16) {
 	Uint16Insert(sl, elem, len(*sl))
@@ -79,6 +100,26 @@ func Uint16FrontPop(sl *[]uint16) (uint16, error) {
 	ret := (*sl)[0]
 	Uint16Delete(sl, 0)
 	return ret, nil
+}
+
+//Uint16Replace modifies the slice with the first n non-overlapping instances of old replaced by new. If n equals -1, there is no limit on the number of replacements.
+func Uint16Replace(sl []uint16, old, new uint16, n int) (replacements int) {
+	left := n
+	for i := range sl {
+		if left == 0 {
+			break // no replacements left
+		}
+		if sl[i] == old {
+			sl[i] = new
+			left--
+		}
+	}
+	return n - left
+}
+
+//Uint16ReplaceAll is equivalent to Uint16Replace with n = -1.
+func Uint16ReplaceAll(sl []uint16, old, new uint16) (replacements int) {
+	return Uint16Replace(sl, old, new, -1)
 }
 
 //Uint16Equals compares two uint16 slices. Returns true if their elements are equal.

@@ -7,8 +7,6 @@ import "text/template"
    * Insert (out of bounds test)
    * Delete
    * Pop
-   * Push
-   * FrontPush
    * FrontPop
    * Contains
    * Index

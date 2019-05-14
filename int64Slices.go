@@ -50,6 +50,27 @@ func Int64Index(sl []int64, elem int64) int {
 	return -1
 }
 
+//Int64LastIndex returns the index of the last instance of elem in the slice, or -1 if elem is not present.
+func Int64LastIndex(sl []int64, elem int64) int {
+	for i := len(sl) - 1; i >= 0; i-- {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
+}
+
+//Int64Count will return an int representing the amount of times that elem is present in the slice.
+func Int64Count(sl []int64, elem int64) int {
+	var n int
+	for i := range sl {
+		if sl[i] == elem {
+			n++
+		}
+	}
+	return n
+}
+
 //Int64Push is equivalent to Int64Insert with index len(*sl).
 func Int64Push(sl *[]int64, elem int64) {
 	Int64Insert(sl, elem, len(*sl))
@@ -79,6 +100,26 @@ func Int64FrontPop(sl *[]int64) (int64, error) {
 	ret := (*sl)[0]
 	Int64Delete(sl, 0)
 	return ret, nil
+}
+
+//Int64Replace modifies the slice with the first n non-overlapping instances of old replaced by new. If n equals -1, there is no limit on the number of replacements.
+func Int64Replace(sl []int64, old, new int64, n int) (replacements int) {
+	left := n
+	for i := range sl {
+		if left == 0 {
+			break // no replacements left
+		}
+		if sl[i] == old {
+			sl[i] = new
+			left--
+		}
+	}
+	return n - left
+}
+
+//Int64ReplaceAll is equivalent to Int64Replace with n = -1.
+func Int64ReplaceAll(sl []int64, old, new int64) (replacements int) {
+	return Int64Replace(sl, old, new, -1)
 }
 
 //Int64Equals compares two int64 slices. Returns true if their elements are equal.

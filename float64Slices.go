@@ -50,6 +50,27 @@ func Float64Index(sl []float64, elem float64) int {
 	return -1
 }
 
+//Float64LastIndex returns the index of the last instance of elem in the slice, or -1 if elem is not present.
+func Float64LastIndex(sl []float64, elem float64) int {
+	for i := len(sl) - 1; i >= 0; i-- {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
+}
+
+//Float64Count will return an int representing the amount of times that elem is present in the slice.
+func Float64Count(sl []float64, elem float64) int {
+	var n int
+	for i := range sl {
+		if sl[i] == elem {
+			n++
+		}
+	}
+	return n
+}
+
 //Float64Push is equivalent to Float64Insert with index len(*sl).
 func Float64Push(sl *[]float64, elem float64) {
 	Float64Insert(sl, elem, len(*sl))
@@ -79,6 +100,26 @@ func Float64FrontPop(sl *[]float64) (float64, error) {
 	ret := (*sl)[0]
 	Float64Delete(sl, 0)
 	return ret, nil
+}
+
+//Float64Replace modifies the slice with the first n non-overlapping instances of old replaced by new. If n equals -1, there is no limit on the number of replacements.
+func Float64Replace(sl []float64, old, new float64, n int) (replacements int) {
+	left := n
+	for i := range sl {
+		if left == 0 {
+			break // no replacements left
+		}
+		if sl[i] == old {
+			sl[i] = new
+			left--
+		}
+	}
+	return n - left
+}
+
+//Float64ReplaceAll is equivalent to Float64Replace with n = -1.
+func Float64ReplaceAll(sl []float64, old, new float64) (replacements int) {
+	return Float64Replace(sl, old, new, -1)
 }
 
 //Float64Equals compares two float64 slices. Returns true if their elements are equal.

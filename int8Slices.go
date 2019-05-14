@@ -50,6 +50,27 @@ func Int8Index(sl []int8, elem int8) int {
 	return -1
 }
 
+//Int8LastIndex returns the index of the last instance of elem in the slice, or -1 if elem is not present.
+func Int8LastIndex(sl []int8, elem int8) int {
+	for i := len(sl) - 1; i >= 0; i-- {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
+}
+
+//Int8Count will return an int representing the amount of times that elem is present in the slice.
+func Int8Count(sl []int8, elem int8) int {
+	var n int
+	for i := range sl {
+		if sl[i] == elem {
+			n++
+		}
+	}
+	return n
+}
+
 //Int8Push is equivalent to Int8Insert with index len(*sl).
 func Int8Push(sl *[]int8, elem int8) {
 	Int8Insert(sl, elem, len(*sl))
@@ -79,6 +100,26 @@ func Int8FrontPop(sl *[]int8) (int8, error) {
 	ret := (*sl)[0]
 	Int8Delete(sl, 0)
 	return ret, nil
+}
+
+//Int8Replace modifies the slice with the first n non-overlapping instances of old replaced by new. If n equals -1, there is no limit on the number of replacements.
+func Int8Replace(sl []int8, old, new int8, n int) (replacements int) {
+	left := n
+	for i := range sl {
+		if left == 0 {
+			break // no replacements left
+		}
+		if sl[i] == old {
+			sl[i] = new
+			left--
+		}
+	}
+	return n - left
+}
+
+//Int8ReplaceAll is equivalent to Int8Replace with n = -1.
+func Int8ReplaceAll(sl []int8, old, new int8) (replacements int) {
+	return Int8Replace(sl, old, new, -1)
 }
 
 //Int8Equals compares two int8 slices. Returns true if their elements are equal.

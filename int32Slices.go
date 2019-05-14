@@ -50,6 +50,27 @@ func Int32Index(sl []int32, elem int32) int {
 	return -1
 }
 
+//Int32LastIndex returns the index of the last instance of elem in the slice, or -1 if elem is not present.
+func Int32LastIndex(sl []int32, elem int32) int {
+	for i := len(sl) - 1; i >= 0; i-- {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
+}
+
+//Int32Count will return an int representing the amount of times that elem is present in the slice.
+func Int32Count(sl []int32, elem int32) int {
+	var n int
+	for i := range sl {
+		if sl[i] == elem {
+			n++
+		}
+	}
+	return n
+}
+
 //Int32Push is equivalent to Int32Insert with index len(*sl).
 func Int32Push(sl *[]int32, elem int32) {
 	Int32Insert(sl, elem, len(*sl))
@@ -79,6 +100,26 @@ func Int32FrontPop(sl *[]int32) (int32, error) {
 	ret := (*sl)[0]
 	Int32Delete(sl, 0)
 	return ret, nil
+}
+
+//Int32Replace modifies the slice with the first n non-overlapping instances of old replaced by new. If n equals -1, there is no limit on the number of replacements.
+func Int32Replace(sl []int32, old, new int32, n int) (replacements int) {
+	left := n
+	for i := range sl {
+		if left == 0 {
+			break // no replacements left
+		}
+		if sl[i] == old {
+			sl[i] = new
+			left--
+		}
+	}
+	return n - left
+}
+
+//Int32ReplaceAll is equivalent to Int32Replace with n = -1.
+func Int32ReplaceAll(sl []int32, old, new int32) (replacements int) {
+	return Int32Replace(sl, old, new, -1)
 }
 
 //Int32Equals compares two int32 slices. Returns true if their elements are equal.

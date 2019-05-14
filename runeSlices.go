@@ -50,6 +50,27 @@ func RuneIndex(sl []rune, elem rune) int {
 	return -1
 }
 
+//RuneLastIndex returns the index of the last instance of elem in the slice, or -1 if elem is not present.
+func RuneLastIndex(sl []rune, elem rune) int {
+	for i := len(sl) - 1; i >= 0; i-- {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
+}
+
+//RuneCount will return an int representing the amount of times that elem is present in the slice.
+func RuneCount(sl []rune, elem rune) int {
+	var n int
+	for i := range sl {
+		if sl[i] == elem {
+			n++
+		}
+	}
+	return n
+}
+
 //RunePush is equivalent to RuneInsert with index len(*sl).
 func RunePush(sl *[]rune, elem rune) {
 	RuneInsert(sl, elem, len(*sl))
@@ -79,6 +100,26 @@ func RuneFrontPop(sl *[]rune) (rune, error) {
 	ret := (*sl)[0]
 	RuneDelete(sl, 0)
 	return ret, nil
+}
+
+//RuneReplace modifies the slice with the first n non-overlapping instances of old replaced by new. If n equals -1, there is no limit on the number of replacements.
+func RuneReplace(sl []rune, old, new rune, n int) (replacements int) {
+	left := n
+	for i := range sl {
+		if left == 0 {
+			break // no replacements left
+		}
+		if sl[i] == old {
+			sl[i] = new
+			left--
+		}
+	}
+	return n - left
+}
+
+//RuneReplaceAll is equivalent to RuneReplace with n = -1.
+func RuneReplaceAll(sl []rune, old, new rune) (replacements int) {
+	return RuneReplace(sl, old, new, -1)
 }
 
 //RuneEquals compares two rune slices. Returns true if their elements are equal.

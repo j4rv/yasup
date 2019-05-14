@@ -50,6 +50,27 @@ func IntIndex(sl []int, elem int) int {
 	return -1
 }
 
+//IntLastIndex returns the index of the last instance of elem in the slice, or -1 if elem is not present.
+func IntLastIndex(sl []int, elem int) int {
+	for i := len(sl) - 1; i >= 0; i-- {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
+}
+
+//IntCount will return an int representing the amount of times that elem is present in the slice.
+func IntCount(sl []int, elem int) int {
+	var n int
+	for i := range sl {
+		if sl[i] == elem {
+			n++
+		}
+	}
+	return n
+}
+
 //IntPush is equivalent to IntInsert with index len(*sl).
 func IntPush(sl *[]int, elem int) {
 	IntInsert(sl, elem, len(*sl))
@@ -79,6 +100,26 @@ func IntFrontPop(sl *[]int) (int, error) {
 	ret := (*sl)[0]
 	IntDelete(sl, 0)
 	return ret, nil
+}
+
+//IntReplace modifies the slice with the first n non-overlapping instances of old replaced by new. If n equals -1, there is no limit on the number of replacements.
+func IntReplace(sl []int, old, new int, n int) (replacements int) {
+	left := n
+	for i := range sl {
+		if left == 0 {
+			break // no replacements left
+		}
+		if sl[i] == old {
+			sl[i] = new
+			left--
+		}
+	}
+	return n - left
+}
+
+//IntReplaceAll is equivalent to IntReplace with n = -1.
+func IntReplaceAll(sl []int, old, new int) (replacements int) {
+	return IntReplace(sl, old, new, -1)
 }
 
 //IntEquals compares two int slices. Returns true if their elements are equal.

@@ -50,6 +50,27 @@ func StringIndex(sl []string, elem string) int {
 	return -1
 }
 
+//StringLastIndex returns the index of the last instance of elem in the slice, or -1 if elem is not present.
+func StringLastIndex(sl []string, elem string) int {
+	for i := len(sl) - 1; i >= 0; i-- {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
+}
+
+//StringCount will return an int representing the amount of times that elem is present in the slice.
+func StringCount(sl []string, elem string) int {
+	var n int
+	for i := range sl {
+		if sl[i] == elem {
+			n++
+		}
+	}
+	return n
+}
+
 //StringPush is equivalent to StringInsert with index len(*sl).
 func StringPush(sl *[]string, elem string) {
 	StringInsert(sl, elem, len(*sl))
@@ -79,6 +100,26 @@ func StringFrontPop(sl *[]string) (string, error) {
 	ret := (*sl)[0]
 	StringDelete(sl, 0)
 	return ret, nil
+}
+
+//StringReplace modifies the slice with the first n non-overlapping instances of old replaced by new. If n equals -1, there is no limit on the number of replacements.
+func StringReplace(sl []string, old, new string, n int) (replacements int) {
+	left := n
+	for i := range sl {
+		if left == 0 {
+			break // no replacements left
+		}
+		if sl[i] == old {
+			sl[i] = new
+			left--
+		}
+	}
+	return n - left
+}
+
+//StringReplaceAll is equivalent to StringReplace with n = -1.
+func StringReplaceAll(sl []string, old, new string) (replacements int) {
+	return StringReplace(sl, old, new, -1)
 }
 
 //StringEquals compares two string slices. Returns true if their elements are equal.

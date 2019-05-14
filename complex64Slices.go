@@ -50,6 +50,27 @@ func Complex64Index(sl []complex64, elem complex64) int {
 	return -1
 }
 
+//Complex64LastIndex returns the index of the last instance of elem in the slice, or -1 if elem is not present.
+func Complex64LastIndex(sl []complex64, elem complex64) int {
+	for i := len(sl) - 1; i >= 0; i-- {
+		if sl[i] == elem {
+			return i
+		}
+	}
+	return -1
+}
+
+//Complex64Count will return an int representing the amount of times that elem is present in the slice.
+func Complex64Count(sl []complex64, elem complex64) int {
+	var n int
+	for i := range sl {
+		if sl[i] == elem {
+			n++
+		}
+	}
+	return n
+}
+
 //Complex64Push is equivalent to Complex64Insert with index len(*sl).
 func Complex64Push(sl *[]complex64, elem complex64) {
 	Complex64Insert(sl, elem, len(*sl))
@@ -79,6 +100,26 @@ func Complex64FrontPop(sl *[]complex64) (complex64, error) {
 	ret := (*sl)[0]
 	Complex64Delete(sl, 0)
 	return ret, nil
+}
+
+//Complex64Replace modifies the slice with the first n non-overlapping instances of old replaced by new. If n equals -1, there is no limit on the number of replacements.
+func Complex64Replace(sl []complex64, old, new complex64, n int) (replacements int) {
+	left := n
+	for i := range sl {
+		if left == 0 {
+			break // no replacements left
+		}
+		if sl[i] == old {
+			sl[i] = new
+			left--
+		}
+	}
+	return n - left
+}
+
+//Complex64ReplaceAll is equivalent to Complex64Replace with n = -1.
+func Complex64ReplaceAll(sl []complex64, old, new complex64) (replacements int) {
+	return Complex64Replace(sl, old, new, -1)
 }
 
 //Complex64Equals compares two complex64 slices. Returns true if their elements are equal.

@@ -12,10 +12,14 @@ Current helper functions include:
 - **Delete** an element at a given index
 - **Contains** an element
 - **Index** of an element in the slice, or -1 if not found
+- **LastIndex** of an element in the slice, or -1 if not found
+- **Count** the amount of elements in the slice that match a given one
 - **Push** an element to the end of the slice
 - **Pop** an element from the end of the slice
 - **FrontPush**: pushes an element to the start of the slice
 - **FrontPop**: pops an element from the start of the slice
+- **Replace**: replaces elements that match a given value with another given value N times
+- **ReplaceAll**: replaces all elements that match a given value with another given value
 - An **Equals** function for comparing slices
 - **Shuffle** functions: One that uses math/rand and one that uses crypto/rand
 
